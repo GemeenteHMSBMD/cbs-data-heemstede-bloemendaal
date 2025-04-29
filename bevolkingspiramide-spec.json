@@ -1,239 +1,80 @@
 {
   "data": {
-    "url": "https://cms.onderzoek-en-statistiek.nl/uploads/bevolking_naar_leeftijd_en_geslacht_1975_2024_e2733ff21a.tsv",
+    "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/refs/heads/main/VegaPyramideHMStab.txt",
     "name": "table",
     "format": {
       "type": "tsv",
       "parse": {
         "jaar": "number",
-        "leeftijd": "number",
-        "_prognose": "number",
-        "totaal man": "number",
-        "totaal vrouw": "number"
+        "mannen": "number",
+        "vrouwen": "number",
+        "leeftijd": "number"
       }
     }
   },
   "layer": [
     {
-      "mark": {"type": "bar", "height": {"expr": "barheight"}},
-      "encoding": {
-        "x": {
-          "axis": {
-            "format": ",d",
-            "values": [
-              -12500,
-              -10000,
-              -7500,
-              -5000,
-              -2500,
-              0,
-              2500,
-              5000,
-              7500,
-              10000,
-              12500
-            ],
-            "gridWidth": 2,
-            "labelExpr": "{'−10.000':['10.000','mannen'],'−5.000':'5.000','0':['0',jaar],'5.000':'5.000','10.000':['10.000','vrouwen']}[datum.label]",
-            "tickCount": 12,
-            "labelFlush": false
-          },
-          "field": "totaal vrouw",
-          "scale": {"domain": [-12500, 12500]},
-          "title": ["per leeftijd, geboortejaar"],
-          "aggregate": "sum"
-        },
-        "y": {"axis": null, "sort": "descending", "field": "leeftijd"},
-        "color": {
-          "field": "_aantalvrouw",
-          "scale": {
-            "type": "threshold",
-            "range": [
-              "#65b0f0",
-              "#5167ad",
-              "#b9d6f8",
-              "#aab0d6",
-              "#009dec",
-              "#004699",
-              "#93c3f4",
-              "#7f8ac2"
-            ],
-            "domain": [0, 1, 2, 3, 4, 5, 6, 7]
-          },
-          "legend": null
-        },
-        "tooltip": [
-          {"field": "_geboortejaartooltip", "title": "geboortejaar"},
-          {"field": "_leeftijdtooltip", "title": "leeftijd"},
-          {"field": "_geslacht", "title": "geslacht"},
-          {"field": "totaal vrouw", "title": "aantal"},
-          {"field": "_leeg", "title": "-"},
-          {"field": "_overschotman", "title": "overschot mannen"},
-          {"field": "totaal man", "title": "totaal mannen"},
-          {"field": "_overschotvrouw", "title": "overschot vrouwen"},
-          {"field": "totaal vrouw", "title": "totaal vrouwen"}
-        ]
-      },
-      "transform": [
-        {"as": "_geslacht", "calculate": "if(datum._aantal > 0, 'vrouw', '')"}
-      ]
+      "mark": {"type": "bar", "color": "#009dec", "height": {"band": 1.3}},
+      "encoding": {"x": {"field": "_mannen", "aggregate": "sum"}}
     },
     {
-      "mark": {"type": "bar", "height": {"expr": "barheight"}},
-      "encoding": {
-        "x": {"field": "_totaalman_neg", "aggregate": "sum"},
-        "y": {"axis": null, "sort": "descending", "field": "leeftijd"},
-        "color": {
-          "field": "_aantalman",
-          "scale": {"type": "threshold", "domain": [0, 1, 2, 3, 4, 5, 6, 7]},
-          "legend": null
-        },
-        "tooltip": [
-          {"field": "_geboortejaartooltip", "title": "geboortejaar"},
-          {"field": "_leeftijdtooltip", "title": "leeftijd"},
-          {"field": "_geslacht", "title": "geslacht"},
-          {"field": "totaal man", "title": "aantal"},
-          {"field": "_leeg", "title": "-"},
-          {"field": "_overschotman", "title": "overschot mannen"},
-          {"field": "totaal man", "title": "totaal mannen"},
-          {"field": "_overschotvrouw", "title": "overschot vrouwen"},
-          {"field": "totaal vrouw", "title": "totaal vrouwen"}
-        ]
-      },
-      "transform": [
-        {"as": "_geslacht", "calculate": "if(datum._aantal > 0, 'man', '')"}
-      ]
-    },
-    {
-      "mark": {"type": "bar", "height": {"expr": "barheight"}},
-      "encoding": {
-        "x": {"field": "_overschotmanstart", "aggregate": "sum"},
-        "y": {"axis": null, "sort": "descending", "field": "leeftijd"},
-        "x2": {"field": "_overschotmanend"},
-        "color": {
-          "field": "_manoverschot",
-          "scale": {"type": "threshold", "domain": [0, 1, 2, 3, 4, 5, 6, 7]},
-          "legend": null
-        },
-        "tooltip": [
-          {"field": "_geboortejaartooltip", "title": "geboortejaar"},
-          {"field": "_leeftijdtooltip", "title": "leeftijd"},
-          {"field": "_geslacht", "title": "geslacht"},
-          {"field": "_overschotman", "title": "overschot"},
-          {"field": "_leeg", "title": "-"},
-          {"field": "_overschotman", "title": "overschot mannen"},
-          {"field": "totaal man", "title": "totaal mannen"},
-          {"field": "_overschotvrouw", "title": "overschot vrouwen"},
-          {"field": "totaal vrouw", "title": "totaal vrouwen"}
-        ]
-      },
-      "transform": [
-        {"as": "_geslacht", "calculate": "if(datum._aantal > 0, 'man', '')"}
-      ]
-    },
-    {
-      "mark": {"type": "bar", "height": {"expr": "barheight"}},
-      "encoding": {
-        "x": {"field": "_overschotvrouwstart", "aggregate": "sum"},
-        "y": {"axis": null, "sort": "descending", "field": "leeftijd"},
-        "x2": {"field": "_overschotvrouwend"},
-        "color": {
-          "field": "_vrouwoverschot",
-          "scale": {"type": "threshold", "domain": [0, 1, 2, 3, 4, 5, 6, 7]},
-          "legend": null
-        },
-        "tooltip": [
-          {"field": "_geboortejaartooltip", "title": "geboortejaar"},
-          {"field": "_leeftijdtooltip", "title": "leeftijd"},
-          {"field": "_geslacht", "title": "geslacht"},
-          {"field": "_overschotvrouw", "title": "overschot"},
-          {"field": "_leeg", "title": "-"},
-          {"field": "_overschotman", "title": "overschot mannen"},
-          {"field": "totaal man", "title": "totaal mannen"},
-          {"field": "_overschotvrouw", "title": "overschot vrouwen"},
-          {"field": "totaal vrouw", "title": "totaal vrouwen"}
-        ]
-      },
-      "transform": [
-        {"as": "_geslacht", "calculate": "if(datum._aantal > 0, 'vrouw', '')"}
-      ]
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "opacity": 1,
-        "xOffset": 4,
-        "fontSize": 12,
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "y": {"sort": "descending", "field": "leeftijd", "bandPosition": 0.6},
-        "text": {"field": "_geboortejaar10"},
-        "color": {
-          "value": {
-            "expr": "if(datum._prognose > 0, 'black', if(datum.leeftijd > 80, 'black', 'white'))"
-          }
-        }
-      }
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "color": "white",
-        "opacity": 1,
-        "xOffset": -4,
-        "fontSize": 12,
-        "fontWeight": "bold"
-      },
-      "encoding": {
-        "y": {"sort": "descending", "field": "leeftijd", "bandPosition": 0.6},
-        "text": {"field": "_leeftijd10"},
-        "color": {"value": {"expr": "'black'"}}
-      }
+      "mark": {"type": "bar", "color": "#004699", "height": {"band": 1.3}},
+      "encoding": {"x": {"field": "vrouwen", "aggregate": "sum"}}
     }
   ],
+  "title": "Bevolking Heemstede naar leeftijd en geslacht",
   "width": "container",
   "height": 400,
   "params": [
-    {"expr": "(height+66)/100", "name": "barheight"},
     {
-      "bind": {"max": 2024, "min": 1975, "step": 1, "input": "range"},
+      "bind": {"min": 1988, "max": 2024, "step": 1, "input": "range"},
       "name": "jaar",
-      "value": "2024"
+      "value": 1988
     }
   ],
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "encoding": {
+"x": {
+  "axis": {
+    "format": ",d",
+    "values": [-250, -200, -150, -100, -50, 0, 50, 100, 150, 200, 250],
+    "gridWidth": 2,
+    "labelExpr": "abs(datum.value)",
+    "tickCount": 11,
+    "labelFlush": false
+  },
+  "field": "vrouwen",
+  "scale": {"domain": [-250, 250]},
+  "aggregate": "sum"
+},
+    "y": {
+      "axis": {
+        "grid": true,
+        "labels": true,
+        "offset": {"expr": "-width/2 - 9"},
+        "values": [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        "zindex": 1,
+        "gridColor": "#ffffff77",
+        "labelExpr": "if(datum.label == '100', '+100', datum.label)",
+        "labelOffset": -4,
+        "bandPosition": 1.15,
+        "labelFontSize": 12,
+        "labelFontWeight": "bold"
+      },
+      "sort": "descending",
+      "field": "leeftijd"
+    },
+    "tooltip": [
+      {"field": "_geboortejaartooltip", "title": "geboortejaar"},
+      {"field": "_leeftijdtooltip", "title": "leeftijd"},
+      {"field": "mannen", "title": "totaal mannen"},
+      {"field": "vrouwen", "title": "totaal vrouwen"}
+    ]
+  },
   "transform": [
     {"filter": "datum.jaar == jaar"},
-    {
-      "as": "_overschotmanvrouw",
-      "calculate": "datum['totaal man'] - datum['totaal vrouw']"
-    },
-    {
-      "as": "_aantal",
-      "calculate": "if(datum['totaal man'] > datum['totaal vrouw'], datum['totaal vrouw'], datum['totaal man'])"
-    },
-    {
-      "as": "_overschotman",
-      "calculate": "if(datum._overschotmanvrouw > 0, abs(datum._overschotmanvrouw), 0)"
-    },
-    {
-      "as": "_overschotvrouw",
-      "calculate": "if(datum._overschotmanvrouw < 0, abs(datum._overschotmanvrouw), 0)"
-    },
-    {"as": "_aantalman", "calculate": "datum._aantal * -1"},
-    {"as": "_aantalvrouw", "calculate": "datum._aantal"},
+    {"as": "_mannen", "calculate": "datum.mannen * -1"},
     {"as": "geboortejaar", "calculate": "datum.jaar - datum.leeftijd"},
-    {
-      "as": "_geboortejaar10",
-      "calculate": "if( !((datum.geboortejaar)%10) , if(datum.leeftijd > 99, datum.geboortejaar+' en eerder', if(datum.leeftijd > 1, datum.geboortejaar,  '')), if(datum.leeftijd == 1, '',  ''))"
-    },
-    {
-      "as": "_leeftijd10",
-      "calculate": "if( !((datum.leeftijd)%10), if(datum.leeftijd > 99, '+100', if(datum.leeftijd > 1, datum.leeftijd,  '')), if(datum.leeftijd == 1, '0',  ''))"
-    },
     {
       "as": "_geboortejaartooltip",
       "calculate": "if(datum.leeftijd > 99, datum.geboortejaar+' en eerder', datum.geboortejaar)"
@@ -241,22 +82,6 @@
     {
       "as": "_leeftijdtooltip",
       "calculate": "if(datum.leeftijd > 99, '+100', datum.leeftijd)"
-    },
-    {
-      "as": "_overschotmanstart",
-      "calculate": "(datum['totaal man'] - datum._overschotman)*-1"
-    },
-    {"as": "_overschotmanend", "calculate": "datum['totaal man']*-1"},
-    {"as": "_aantalman", "calculate": "if(datum._prognose > 0, 1, -1)"},
-    {"as": "_aantalvrouw", "calculate": "if(datum._prognose > 0, 2, 0)"},
-    {"as": "_manoverschot", "calculate": "if(datum._prognose > 0, 5, 3)"},
-    {"as": "_vrouwoverschot", "calculate": "if(datum._prognose > 0, 6, 4)"},
-    {
-      "as": "_overschotvrouwstart",
-      "calculate": "datum['totaal vrouw'] - datum._overschotvrouw"
-    },
-    {"as": "_overschotvrouwend", "calculate": "datum['totaal vrouw']"},
-    {"as": "_totaalman_neg", "calculate": "datum['totaal man']*-1"},
-    {"as": "_leeg", "calculate": "if(datum._overschotvrouw,'-','-')"}
+    }
   ]
 }
