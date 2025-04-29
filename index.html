@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Bevolking Heemstede</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    #vis {
+      max-width: 900px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
+  <div id="vis"></div>
+
+  <script type="text/javascript">
+    vegaEmbed('#vis', 'VegaSpec.json', {actions: false})
+      .catch(console.error);
+  </script>
+</body>
+</html>
