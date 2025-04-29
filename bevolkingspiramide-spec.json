@@ -34,19 +34,20 @@
   ],
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "encoding": {
-"x": {
-  "axis": {
-    "format": ",d",
-    "values": [-250, -200, -150, -100, -50, 0, 50, 100, 150, 200, 250],
-    "gridWidth": 2,
-    "labelExpr": "abs(datum.value)",
-    "tickCount": 11,
-    "labelFlush": false
-  },
-  "field": "vrouwen",
-  "scale": {"domain": [-250, 250]},
-  "aggregate": "sum"
-},
+    "x": {
+      "axis": {
+        "format": ",d",
+        "values": [-250, -200, -150, -100, -50, 0, 50, 100, 150, 200, 250],
+        "gridWidth": 2,
+        "labelExpr": "abs(datum.value)",
+        "tickCount": 11,
+        "labelFlush": false,
+        "title": "Aantal mannen en vrouwen"  // Hier is de titel toegevoegd
+      },
+      "field": "vrouwen",
+      "scale": {"domain": [-250, 250]},
+      "aggregate": "sum"
+    },
     "y": {
       "axis": {
         "grid": true,
