@@ -2,23 +2,30 @@
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
-    <title>Bevolkingspiramide Bloemendaal</title>
+    <title>Bevolking Bloemendaal</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
     <style>
       body {
         font-family: sans-serif;
-        padding: 2rem;
+        margin: 0;
+        padding: 0;
+        background: #f9f9f9;
       }
+
       #vis {
-        max-width: 900px;
-        margin: auto;
+        width: 100%;
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 1rem;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
       }
     </style>
   </head>
   <body>
-    <h1>Interactieve bevolkingspiramide Bloemendaal</h1>
     <div id="vis"></div>
     <script type="text/javascript">
       const spec = {
@@ -36,24 +43,24 @@
             }
           }
         },
-        "layer": [
-          {
-            "mark": { "type": "bar", "color": "#66c2a5", "height": { "band": 1.3 } },
-            "encoding": { "x": { "field": "_mannen", "aggregate": "sum" } }
-          },
-          {
-            "mark": { "type": "bar", "color": "#1b7837", "height": { "band": 1.3 } },
-            "encoding": { "x": { "field": "vrouwen", "aggregate": "sum" } }
-          }
-        ],
         "title": "Bevolking Bloemendaal naar leeftijd en geslacht",
         "width": "container",
         "height": 400,
         "params": [
           {
-            "bind": { "min": 1988, "max": 2024, "step": 1, "input": "range" },
+            "bind": {"min": 1988, "max": 2024, "step": 1, "input": "range"},
             "name": "jaar",
             "value": 1988
+          }
+        ],
+        "layer": [
+          {
+            "mark": {"type": "bar", "color": "#66c2a5", "height": {"band": 1.3}},
+            "encoding": {"x": {"field": "_mannen", "aggregate": "sum"}}
+          },
+          {
+            "mark": {"type": "bar", "color": "#1b7837", "height": {"band": 1.3}},
+            "encoding": {"x": {"field": "vrouwen", "aggregate": "sum"}}
           }
         ],
         "encoding": {
@@ -75,7 +82,7 @@
             "axis": {
               "grid": true,
               "labels": true,
-              "offset": { "expr": "-width/2 - 9" },
+              "offset": {"expr": "-width/2 - 9"},
               "values": [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
               "zindex": 1,
               "gridColor": "#ffffff77",
@@ -89,16 +96,16 @@
             "field": "leeftijd"
           },
           "tooltip": [
-            { "field": "_geboortejaartooltip", "title": "geboortejaar" },
-            { "field": "_leeftijdtooltip", "title": "leeftijd" },
-            { "field": "mannen", "title": "totaal mannen" },
-            { "field": "vrouwen", "title": "totaal vrouwen" }
+            {"field": "_geboortejaartooltip", "title": "geboortejaar"},
+            {"field": "_leeftijdtooltip", "title": "leeftijd"},
+            {"field": "mannen", "title": "totaal mannen"},
+            {"field": "vrouwen", "title": "totaal vrouwen"}
           ]
         },
         "transform": [
-          { "filter": "datum.jaar == jaar" },
-          { "as": "_mannen", "calculate": "datum.mannen * -1" },
-          { "as": "geboortejaar", "calculate": "datum.jaar - datum.leeftijd" },
+          {"filter": "datum.jaar == jaar"},
+          {"as": "_mannen", "calculate": "datum.mannen * -1"},
+          {"as": "geboortejaar", "calculate": "datum.jaar - datum.leeftijd"},
           {
             "as": "_geboortejaartooltip",
             "calculate": "if(datum.leeftijd > 99, datum.geboortejaar+' en eerder', datum.geboortejaar)"
@@ -109,7 +116,8 @@
           }
         ]
       };
-      vegaEmbed('#vis', spec);
+
+      vegaEmbed("#vis", spec, {actions: false});
     </script>
   </body>
 </html>
