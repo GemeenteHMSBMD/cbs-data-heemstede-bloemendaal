@@ -14,11 +14,11 @@
   },
   "layer": [
     {
-      "mark": {"type": "bar", "color": "#009dec", "height": {"band": 1.3}},
+      "mark": {"type": "bar", "color": "#66c2a5", "height": {"band": 1.3}},
       "encoding": {"x": {"field": "_mannen", "aggregate": "sum"}}
     },
     {
-      "mark": {"type": "bar", "color": "#004699", "height": {"band": 1.3}},
+      "mark": {"type": "bar", "color": "#1b7837", "height": {"band": 1.3}},
       "encoding": {"x": {"field": "vrouwen", "aggregate": "sum"}}
     }
   ],
