@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Bevolking Bloemendaal</title>
+    <meta charset="utf-8" />
+    <title>Bevolkingspiramide Heemstede</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
     <style>
       body {
-        font-family: sans-serif;
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
+        font-family: sans-serif;
       }
-
       #vis {
         width: 100%;
-        max-width: 1000px;
-        margin: 2rem auto;
-        padding: 1rem;
-        background: white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
+        height: 100vh;
       }
     </style>
   </head>
@@ -31,7 +24,7 @@
       const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "data": {
-          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/refs/heads/main/VegaPyramideBMDtab.txt",
+          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/refs/heads/main/VegaPyramideHMStab.txt",
           "name": "table",
           "format": {
             "type": "tsv",
@@ -43,7 +36,17 @@
             }
           }
         },
-        "title": "Bevolking Bloemendaal naar leeftijd en geslacht",
+        "layer": [
+          {
+            "mark": {"type": "bar", "color": "#009dec", "height": {"band": 1.3}},
+            "encoding": {"x": {"field": "_mannen", "aggregate": "sum"}}
+          },
+          {
+            "mark": {"type": "bar", "color": "#004699", "height": {"band": 1.3}},
+            "encoding": {"x": {"field": "vrouwen", "aggregate": "sum"}}
+          }
+        ],
+        "title": "Bevolking Heemstede naar leeftijd en geslacht",
         "width": "container",
         "height": 400,
         "params": [
@@ -51,16 +54,6 @@
             "bind": {"min": 1988, "max": 2024, "step": 1, "input": "range"},
             "name": "jaar",
             "value": 1988
-          }
-        ],
-        "layer": [
-          {
-            "mark": {"type": "bar", "color": "#66c2a5", "height": {"band": 1.3}},
-            "encoding": {"x": {"field": "_mannen", "aggregate": "sum"}}
-          },
-          {
-            "mark": {"type": "bar", "color": "#1b7837", "height": {"band": 1.3}},
-            "encoding": {"x": {"field": "vrouwen", "aggregate": "sum"}}
           }
         ],
         "encoding": {
@@ -75,7 +68,7 @@
               "title": "Aantal mannen en vrouwen"
             },
             "field": "vrouwen",
-            "scale": {},
+            "scale": {"domain": [-250, 250]},
             "aggregate": "sum"
           },
           "y": {
@@ -117,7 +110,7 @@
         ]
       };
 
-      vegaEmbed("#vis", spec, {actions: false});
+      vegaEmbed("#vis", spec, { actions: false }).catch(console.error);
     </script>
   </body>
 </html>
