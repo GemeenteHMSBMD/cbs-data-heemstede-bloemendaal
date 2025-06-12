@@ -75,7 +75,8 @@
             "axis": {
               "title": "Leeftijd",
               "labelFontSize": 12,
-              "labelFontWeight": "bold"
+              "labelFontWeight": "bold",
+              "labelExpr": "datum.value % 10 === 0 ? datum.value : ''"
             }
           },
           "x": {
