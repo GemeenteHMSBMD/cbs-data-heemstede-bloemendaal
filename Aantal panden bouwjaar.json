@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Aantal gebouwde panden per bouwjaar in Heemstede",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/BAG%20data%20tekst.txt",
+    "format": {
+      "type": "tsv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null"
+    },
+    {
+      "calculate": "toNumber(datum['BOUWJAAR'])",
+      "as": "Bouwjaar"
+    },
+    {
+      "filter": "datum.Bouwjaar >= 1800 && datum.Bouwjaar <= 2025"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "color": "#FF1493",
+    "opacity": 0.6
+  },
+  "encoding": {
+    "x": {
+      "field": "Bouwjaar",
+      "type": "quantitative",
+      "title": "Bouwjaar",
+      "axis": {
+        "tickMinStep": 10,
+        "labelFontSize": 14,
+        "titleFontSize": 16,
+        "format": "d"
+      }
+    },
+    "y": {
+      "aggregate": "count",
+      "title": "Aantal panden",
+      "axis": {
+        "labelFontSize": 14,
+        "titleFontSize": 16
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Bouwjaar",
+        "type": "quantitative",
+        "title": "Bouwjaar"
+      },
+      {
+        "aggregate": "count",
+        "title": "Aantal panden"
+      }
+    ]
+  }
+}
