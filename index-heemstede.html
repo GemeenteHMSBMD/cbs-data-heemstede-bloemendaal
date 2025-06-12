@@ -2,7 +2,7 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <title>Heemstede Bevolkingsvisualisaties</title>
+    <title>Bevolking Heemstede</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -14,29 +14,38 @@
         margin: 0;
       }
       .container {
-        max-width: 900px;
+        max-width: 1000px;
         margin: auto;
         background: white;
         padding: 2rem;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
-      h1, h2 {
-        text-align: center;
+      .chart {
+        margin-bottom: 3rem;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
-      <div id="vis"></div>
+      <h1>Bevolking Heemstede</h1>
 
-      <h2>Ontwikkeling totale bevolking en 65+ in Heemstede</h2>
-      <div id="bevolking65plus"></div>
+      <!-- Bevolkingspiramide -->
+      <div class="chart">
+        <h2>Bevolking naar leeftijd en geslacht</h2>
+        <div id="piramide"></div>
+      </div>
+
+      <!-- Bevolkingsontwikkeling -->
+      <div class="chart">
+        <h2>Ontwikkeling totale bevolking en 65+</h2>
+        <div id="aandeel"></div>
+      </div>
     </div>
 
     <script type="text/javascript">
-      const specPiramide = {
+      // Bevolkingspiramide
+      const piramideSpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "width": 700,
         "height": 400,
@@ -84,7 +93,8 @@
             "sort": "descending",
             "axis": {
               "title": "Leeftijd",
-              "labelFontSize": 14,
+              "labelFontSize": 13,
+              "titleFontSize": 15,
               "labelFontWeight": "bold",
               "labelExpr": "datum.value % 10 === 0 ? datum.value : ''"
             }
@@ -94,6 +104,8 @@
             "type": "quantitative",
             "axis": {
               "title": "Aantal personen",
+              "labelFontSize": 13,
+              "titleFontSize": 15,
               "format": ",d",
               "labelExpr": "abs(datum.value)"
             },
@@ -109,7 +121,7 @@
             "legend": {
               "title": "Geslacht",
               "orient": "top",
-              "labelFontSize": 14
+              "labelFontSize": 14,
               "titleFontSize": 16
             }
           },
@@ -120,10 +132,7 @@
             { "field": "GeslachtLabel", "title": "Geslacht" }
           ]
         },
-        "mark": {
-          "type": "bar",
-          "tooltip": true
-        },
+        "mark": { "type": "bar", "tooltip": true },
         "params": [
           {
             "name": "jaar",
@@ -138,80 +147,121 @@
         ]
       };
 
-      const spec65plus = {
+      // Area Chart met totale bevolking en 65+
+      const aandeelSpec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "description": "Totale bevolking en 65+ bevolking in Heemstede",
         "width": 700,
-        "height": 300,
+        "height": 400,
         "data": {
           "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
           "format": { "type": "tsv" }
         },
         "transform": [
-          { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
-        ],
-        "layer": [
+          { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" },
           {
-            "transform": [
+            "calculate": "toNumber(datum['Perioden'])",
+            "as": "jaar"
+          },
+          {
+            "calculate": "toNumber(datum['Leeftijd'])",
+            "as": "leeftijd"
+          },
+          {
+            "calculate": "toNumber(datum['Bevolking op 1 januari'])",
+            "as": "aantal"
+          },
+          {
+            "aggregate": [
               {
-                "aggregate": [
-                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
-                ],
-                "groupby": ["Perioden"]
-              },
-              { "calculate": "'Totale bevolking'", "as": "categorie" }
+                "op": "sum",
+                "field": "aantal",
+                "as": "totaal"
+              }
             ],
-            "mark": { "type": "area", "opacity": 0.6 },
-            "encoding": {
-              "x": { "field": "Perioden", "type": "ordinal", "title": "Jaar" },
-              "y": { "field": "aantal", "type": "quantitative", "title": "Aantal personen" },
-              "color": {
-                "field": "categorie",
-                "type": "nominal",
-                "scale": {
-                  "domain": ["Totale bevolking", "Bevolking 65+"],
-                  "range": ["#a6cee3", "#1f78b4"]
-                },
-                "legend": {
-                  "title": "Bevolkingsgroep",
-                  "orient": "top".
-                  "labelFontSize": 14,
-                  "titleFontSize": 16
-                }
+            "groupby": ["jaar"]
+          },
+          {
+            "lookup": "jaar",
+            "from": {
+              "data": {
+                "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
+                "format": { "type": "tsv" }
               },
-              "tooltip": [
-                { "field": "Perioden", "title": "Jaar" },
-                { "field": "aantal", "title": "Totale bevolking" }
-              ]
+              "key": "Perioden",
+              "fields": ["Leeftijd", "Geslacht", "Bevolking op 1 januari"],
+              "as": ["leeftijd2", "geslacht2", "aantal2"]
             }
           },
           {
-            "transform": [
-              { "filter": "toNumber(datum['Leeftijd']) >= 65" },
-              {
-                "aggregate": [
-                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
-                ],
-                "groupby": ["Perioden"]
-              },
-              { "calculate": "'Bevolking 65+'", "as": "categorie" }
+            "filter": "datum.geslacht2 == 'Totaal mannen en vrouwen' && datum.leeftijd2 >= 65"
+          },
+          {
+            "calculate": "toNumber(datum.aantal2)",
+            "as": "aantal_65plus"
+          },
+          {
+            "aggregate": [
+              { "op": "sum", "field": "aantal_65plus", "as": "totaal_65plus" }
             ],
-            "mark": { "type": "area", "opacity": 0.6 },
-            "encoding": {
-              "x": { "field": "Perioden", "type": "ordinal" },
-              "y": { "field": "aantal", "type": "quantitative" },
-              "color": { "field": "categorie", "type": "nominal" },
-              "tooltip": [
-                { "field": "Perioden", "title": "Jaar" },
-                { "field": "aantal", "title": "Bevolking 65+" }
-              ]
-            }
+            "groupby": ["jaar", "totaal"]
+          },
+          {
+            "fold": ["totaal", "totaal_65plus"],
+            "as": ["categorie", "waarde"]
+          },
+          {
+            "calculate": "datum.categorie == 'totaal' ? 'Totale bevolking' : 'Bevolking 65+'",
+            "as": "categorie_label"
           }
-        ]
+        ],
+        "mark": {
+          "type": "area",
+          "interpolate": "monotone",
+          "opacity": 0.6
+        },
+        "encoding": {
+          "x": {
+            "field": "jaar",
+            "type": "temporal",
+            "axis": {
+              "title": "Jaar",
+              "labelFontSize": 13,
+              "titleFontSize": 15
+            }
+          },
+          "y": {
+            "field": "waarde",
+            "type": "quantitative",
+            "axis": {
+              "title": "Aantal personen",
+              "labelFontSize": 13,
+              "titleFontSize": 15
+            }
+          },
+          "color": {
+            "field": "categorie_label",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Totale bevolking", "Bevolking 65+"],
+              "range": ["#a6cee3", "#1f78b4"]
+            },
+            "legend": {
+              "title": "Bevolkingsgroep",
+              "orient": "top",
+              "labelFontSize": 14,
+              "titleFontSize": 16
+            }
+          },
+          "tooltip": [
+            { "field": "jaar", "title": "Jaar", "type": "temporal" },
+            { "field": "waarde", "title": "Aantal" },
+            { "field": "categorie_label", "title": "Groep" }
+          ]
+        }
       };
 
-      vegaEmbed("#vis", specPiramide, { actions: false }).catch(console.error);
-      vegaEmbed("#bevolking65plus", spec65plus, { actions: false }).catch(console.error);
+      vegaEmbed("#piramide", piramideSpec, { actions: false });
+      vegaEmbed("#aandeel", aandeelSpec, { actions: false });
     </script>
   </body>
 </html>
