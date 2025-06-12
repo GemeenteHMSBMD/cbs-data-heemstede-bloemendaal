@@ -4,7 +4,7 @@
   "height": 600,
   "description": "Totale bevolking en 65+ bevolking in Heemstede",
   "data": {
-    "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
     "format": { "type": "tsv" }
   },
   "transform": [
