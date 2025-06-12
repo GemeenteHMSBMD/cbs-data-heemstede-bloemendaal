@@ -14,32 +14,28 @@
         margin: 0;
       }
       .container {
-        max-width: 900px;
+        max-width: 700px;
         margin: auto;
         background: white;
         padding: 2rem;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
-      .vis {
-        margin-top: 2rem;
-      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Bevolkingspiramide Heemstede</h1>
-      <div id="vis" class="vis"></div>
+      <div id="vis"></div>
     </div>
 
     <script type="text/javascript">
       const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "title": "Bevolking Heemstede naar leeftijd en geslacht",
         "width": 700,
-        "height": 500,
+        "height": 400,
         "data": {
-          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/refs/heads/main/VegaPyramideHMStab.txt",
+          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/VegaPyramideHMStab.txt",
           "format": {
             "type": "tsv",
             "parse": {
@@ -51,13 +47,9 @@
           }
         },
         "transform": [
-          { "filter": "datum.jaar == jaar" },
-          { "fold": ["mannen", "vrouwen"], "as": ["geslacht", "aantal"] },
-          {
-            "calculate": "datum.geslacht == 'mannen' ? datum.aantal * -1 : datum.aantal",
-            "as": "waarde"
-          },
-          { "calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar" },
+          {"filter": "datum.jaar == jaar"},
+          {"calculate": "datum.mannen * -1", "as": "_mannen"},
+          {"calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar"},
           {
             "calculate": "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
             "as": "_geboortejaartooltip"
@@ -65,13 +57,14 @@
           {
             "calculate": "if(datum.leeftijd > 99, '+100', datum.leeftijd)",
             "as": "_leeftijdtooltip"
-          }
-        ],
-        "params": [
+          },
           {
-            "bind": { "min": 1988, "max": 2024, "step": 1, "input": "range" },
-            "name": "jaar",
-            "value": 1988
+            "fold": ["_mannen", "vrouwen"],
+            "as": ["geslacht", "aantal"]
+          },
+          {
+            "calculate": "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
+            "as": "GeslachtLabel"
           }
         ],
         "encoding": {
@@ -81,36 +74,56 @@
             "sort": "descending",
             "axis": {
               "title": "Leeftijd",
-              "labelExpr": "datum.value % 10 === 0 ? datum.value : ''",
+              "labelFontSize": 12,
               "labelFontWeight": "bold",
-              "labelFontSize": 12
+              "labelExpr": "datum.value % 10 === 0 ? datum.value : ''"
             }
           },
           "x": {
-            "field": "waarde",
+            "field": "aantal",
             "type": "quantitative",
             "axis": {
-              "title": "Aantal mannen en vrouwen",
+              "title": "Aantal personen",
+              "format": ",d",
               "labelExpr": "abs(datum.value)"
-            }
+            },
+            "scale": { "domain": [-250, 250] }
           },
           "color": {
-            "field": "geslacht",
+            "field": "GeslachtLabel",
             "type": "nominal",
             "scale": {
-              "domain": ["mannen", "vrouwen"],
-              "range": ["#009dec", "#004699"]
+              "domain": ["Mannen", "Vrouwen"],
+              "range": ["#66c2a5", "#1b7837"]
             },
-            "legend": { "title": "Geslacht" }
+            "legend": {
+              "title": "Geslacht",
+              "orient": "top"
+            }
           },
           "tooltip": [
-            { "field": "_geboortejaartooltip", "title": "Geboortejaar" },
-            { "field": "_leeftijdtooltip", "title": "Leeftijd" },
-            { "field": "geslacht", "title": "Geslacht" },
-            { "field": "aantal", "title": "Aantal" }
+            {"field": "_geboortejaartooltip", "title": "Geboortejaar"},
+            {"field": "_leeftijdtooltip", "title": "Leeftijd"},
+            {"field": "aantal", "title": "Aantal"},
+            {"field": "GeslachtLabel", "title": "Geslacht"}
           ]
         },
-        "mark": { "type": "bar", "height": { "band": 1.3 } }
+        "mark": {
+          "type": "bar",
+          "tooltip": true
+        },
+        "params": [
+          {
+            "name": "jaar",
+            "value": 1988,
+            "bind": {
+              "input": "range",
+              "min": 1988,
+              "max": 2024,
+              "step": 1
+            }
+          }
+        ]
       };
 
       vegaEmbed("#vis", spec, { actions: false }).catch(console.error);
