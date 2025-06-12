@@ -33,6 +33,9 @@
 
       <h2>Ontwikkeling totale bevolking en 65+ in Heemstede</h2>
       <div id="bevolking65plus"></div>
+
+      <h2>Gebouwde panden per bouwjaar in Heemstede</h2>
+<div id="gebouwdePanden"></div>
     </div>
 
     <script type="text/javascript">
@@ -205,9 +208,73 @@
           }
         ]
       };
+      const specGebouwdePanden = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Aantal gebouwde panden per bouwjaar in Heemstede",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/BAG%20data%20tekst.txt",
+    "format": {
+      "type": "tsv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum['GEMEENTENAAM'] === 'Heemstede' && isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null"
+    },
+    {
+      "calculate": "toNumber(datum['BOUWJAAR'])",
+      "as": "Bouwjaar"
+    },
+    {
+      "filter": "datum.Bouwjaar >= 1800 && datum.Bouwjaar <= 2025"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "color": "#FF1493",
+    "opacity": 0.6
+  },
+  "encoding": {
+    "x": {
+      "field": "Bouwjaar",
+      "type": "quantitative",
+      "title": "Bouwjaar",
+      "axis": {
+        "tickMinStep": 10,
+        "labelFontSize": 14,
+        "titleFontSize": 16,
+        "format": "d"
+      }
+    },
+    "y": {
+      "aggregate": "count",
+      "title": "Aantal panden",
+      "axis": {
+        "labelFontSize": 14,
+        "titleFontSize": 16
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Bouwjaar",
+        "type": "quantitative",
+        "title": "Bouwjaar"
+      },
+      {
+        "aggregate": "count",
+        "title": "Aantal panden"
+      }
+    ]
+  }
+};
 
       vegaEmbed("#vis", specPiramide, { actions: false }).catch(console.error);
       vegaEmbed("#bevolking65plus", spec65plus, { actions: false }).catch(console.error);
+      vegaEmbed("#gebouwdePanden", specGebouwdePanden, { actions: false }).catch(console.error);
+      
     </script>
   </body>
 </html>
