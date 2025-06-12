@@ -65,7 +65,10 @@
           {
             "calculate": "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
             "as": "GeslachtLabel"
-          }
+          },
+          { "calculate": "abs(datum.aantal)",
+           "as": "_aantalTooltip"
+             }
         ],
         "encoding": {
           "y": {
@@ -104,7 +107,7 @@
           "tooltip": [
             {"field": "_geboortejaartooltip", "title": "Geboortejaar"},
             {"field": "_leeftijdtooltip", "title": "Leeftijd"},
-            {"field": "aantal", "title": "Aantal"},
+            {"field": "_aantalTooltip", "title": "Aantal"}
             {"field": "GeslachtLabel", "title": "Geslacht"}
           ]
         },
