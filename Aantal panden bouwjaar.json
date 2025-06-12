@@ -11,7 +11,7 @@
   },
   "transform": [
     {
-      "filter": "isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null"
+      "filter": "datum['GEMEENTENAAM'] === 'Heemstede' && isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null"
     },
     {
       "calculate": "toNumber(datum['BOUWJAAR'])",
