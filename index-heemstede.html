@@ -2,7 +2,7 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <title>Bevolkingspiramide Heemstede</title>
+    <title>Heemstede Bevolkingsvisualisaties</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -21,16 +21,22 @@
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
+      h1, h2 {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
       <div id="vis"></div>
+
+      <h2>Ontwikkeling totale bevolking en 65+ in Heemstede</h2>
+      <div id="bevolking65plus"></div>
     </div>
 
     <script type="text/javascript">
-      const spec = {
+      const specPiramide = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "width": 700,
         "height": 400,
@@ -130,7 +136,78 @@
         ]
       };
 
-      vegaEmbed("#vis", spec, { actions: false }).catch(console.error);
+      const spec65plus = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Totale bevolking en 65+ bevolking in Heemstede",
+        "width": 700,
+        "height": 300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
+          "format": { "type": "tsv" }
+        },
+        "transform": [
+          { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
+        ],
+        "layer": [
+          {
+            "transform": [
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Totale bevolking'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal", "title": "Jaar" },
+              "y": { "field": "aantal", "type": "quantitative", "title": "Aantal personen" },
+              "color": {
+                "field": "categorie",
+                "type": "nominal",
+                "scale": {
+                  "domain": ["Totale bevolking", "Bevolking 65+"],
+                  "range": ["#a6cee3", "#1f78b4"]
+                },
+                "legend": {
+                  "title": "Bevolkingsgroep",
+                  "orient": "top"
+                }
+              },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Totale bevolking" }
+              ]
+            }
+          },
+          {
+            "transform": [
+              { "filter": "toNumber(datum['Leeftijd']) >= 65" },
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Bevolking 65+'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal" },
+              "y": { "field": "aantal", "type": "quantitative" },
+              "color": { "field": "categorie", "type": "nominal" },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Bevolking 65+" }
+              ]
+            }
+          }
+        ]
+      };
+
+      vegaEmbed("#vis", specPiramide, { actions: false }).catch(console.error);
+      vegaEmbed("#bevolking65plus", spec65plus, { actions: false }).catch(console.error);
     </script>
   </body>
 </html>
