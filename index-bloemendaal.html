@@ -2,7 +2,7 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <title>Bevolkingspiramide Bloemendaal</title>
+    <title>Bevolkingspiramide Heemstede</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -25,7 +25,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Bevolking Bloemendaal naar leeftijd en geslacht</h1>
+      <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
       <div id="vis"></div>
     </div>
 
@@ -35,7 +35,7 @@
         "width": 700,
         "height": 400,
         "data": {
-          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/VegaPyramideBMDtab.txt",
+          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/VegaPyramideHMStab.txt",
           "format": {
             "type": "tsv",
             "parse": {
@@ -47,9 +47,9 @@
           }
         },
         "transform": [
-          {"filter": "datum.jaar == jaar"},
-          {"calculate": "datum.mannen * -1", "as": "_mannen"},
-          {"calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar"},
+          { "filter": "datum.jaar == jaar" },
+          { "calculate": "datum.mannen * -1", "as": "_mannen" },
+          { "calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar" },
           {
             "calculate": "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
             "as": "_geboortejaartooltip"
@@ -66,9 +66,10 @@
             "calculate": "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
             "as": "GeslachtLabel"
           },
-          { "calculate": "abs(datum.aantal)",
-           "as": "_aantalTooltip"
-             }
+          {
+            "calculate": "abs(datum.aantal)",
+            "as": "_aantalTooltip"
+          }
         ],
         "encoding": {
           "y": {
@@ -105,10 +106,10 @@
             }
           },
           "tooltip": [
-            {"field": "_geboortejaartooltip", "title": "Geboortejaar"},
-            {"field": "_leeftijdtooltip", "title": "Leeftijd"},
-            {"field": "_aantalTooltip", "title": "Aantal"}
-            {"field": "GeslachtLabel", "title": "Geslacht"}
+            { "field": "_geboortejaartooltip", "title": "Geboortejaar" },
+            { "field": "_leeftijdtooltip", "title": "Leeftijd" },
+            { "field": "_aantalTooltip", "title": "Aantal" },
+            { "field": "GeslachtLabel", "title": "Geslacht" }
           ]
         },
         "mark": {
