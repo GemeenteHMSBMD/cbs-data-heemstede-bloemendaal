@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bevolkingspiramide Bloemendaal</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f9f9f9;
+        padding: 2rem;
+        margin: 0;
+      }
+      .container {
+        max-width: 700px;
+        margin: auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bevolking Bloemendaal naar leeftijd en geslacht</h1>
+      <div id="vis"></div>
+    </div>
+
+    <script type="text/javascript">
+      const spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "width": 700,
+        "height": 400,
+        "data": {
+          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/VegaPyramideBMDtab.txt",
+          "format": {
+            "type": "tsv",
+            "parse": {
+              "jaar": "number",
+              "mannen": "number",
+              "vrouwen": "number",
+              "leeftijd": "number"
+            }
+          }
+        },
+        "transform": [
+          {"filter": "datum.jaar == jaar"},
+          {"calculate": "datum.mannen * -1", "as": "_mannen"},
+          {"calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar"},
+          {
+            "calculate": "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
+            "as": "_geboortejaartooltip"
+          },
+          {
+            "calculate": "if(datum.leeftijd > 99, '+100', datum.leeftijd)",
+            "as": "_leeftijdtooltip"
+          },
+          {
+            "fold": ["_mannen", "vrouwen"],
+            "as": ["geslacht", "aantal"]
+          },
+          {
+            "calculate": "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
+            "as": "GeslachtLabel"
+          }
+        ],
+        "encoding": {
+          "y": {
+            "field": "leeftijd",
+            "type": "ordinal",
+            "sort": "descending",
+            "axis": {
+              "title": "Leeftijd",
+              "labelFontSize": 12,
+              "labelFontWeight": "bold"
+            }
+          },
+          "x": {
+            "field": "aantal",
+            "type": "quantitative",
+            "axis": {
+              "title": "Aantal personen",
+              "format": ",d",
+              "labelExpr": "abs(datum.value)"
+            },
+            "scale": { "domain": [-250, 250] }
+          },
+          "color": {
+            "field": "GeslachtLabel",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Mannen", "Vrouwen"],
+              "range": ["#66c2a5", "#1b7837"]
+            },
+            "legend": {
+              "title": "Geslacht",
+              "orient": "top"
+            }
+          },
+          "tooltip": [
+            {"field": "_geboortejaartooltip", "title": "Geboortejaar"},
+            {"field": "_leeftijdtooltip", "title": "Leeftijd"},
+            {"field": "aantal", "title": "Aantal"},
+            {"field": "GeslachtLabel", "title": "Geslacht"}
+          ]
+        },
+        "mark": {
+          "type": "bar",
+          "tooltip": true
+        },
+        "params": [
+          {
+            "name": "jaar",
+            "value": 1988,
+            "bind": {
+              "input": "range",
+              "min": 1988,
+              "max": 2024,
+              "step": 1
+            }
+          }
+        ]
+      };
+
+      vegaEmbed("#vis", spec, { actions: false }).catch(console.error);
+    </script>
+  </body>
+</html>
