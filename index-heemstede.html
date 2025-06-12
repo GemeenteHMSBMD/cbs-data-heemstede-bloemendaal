@@ -47,9 +47,9 @@
           }
         },
         "transform": [
-          {"filter": "datum.jaar == jaar"},
-          {"calculate": "datum.mannen * -1", "as": "_mannen"},
-          {"calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar"},
+          { "filter": "datum.jaar == jaar" },
+          { "calculate": "datum.mannen * -1", "as": "_mannen" },
+          { "calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar" },
           {
             "calculate": "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
             "as": "_geboortejaartooltip"
@@ -65,6 +65,10 @@
           {
             "calculate": "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
             "as": "GeslachtLabel"
+          },
+          {
+            "calculate": "abs(datum.aantal)",
+            "as": "_aantalTooltip"
           }
         ],
         "encoding": {
@@ -94,7 +98,7 @@
             "type": "nominal",
             "scale": {
               "domain": ["Mannen", "Vrouwen"],
-              "range": ["#a6cee3", "#1f78b4"]  // Blauwtinten!
+              "range": ["#66c2a5", "#1b7837"]
             },
             "legend": {
               "title": "Geslacht",
@@ -102,10 +106,10 @@
             }
           },
           "tooltip": [
-            {"field": "_geboortejaartooltip", "title": "Geboortejaar"},
-            {"field": "_leeftijdtooltip", "title": "Leeftijd"},
-            {"field": "aantal", "title": "Aantal"},
-            {"field": "GeslachtLabel", "title": "Geslacht"}
+            { "field": "_geboortejaartooltip", "title": "Geboortejaar" },
+            { "field": "_leeftijdtooltip", "title": "Leeftijd" },
+            { "field": "_aantalTooltip", "title": "Aantal" },
+            { "field": "GeslachtLabel", "title": "Geslacht" }
           ]
         },
         "mark": {
