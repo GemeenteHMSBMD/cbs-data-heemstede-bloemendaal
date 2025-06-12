@@ -1,6 +1,6 @@
 {
   "data": {
-    "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/refs/heads/main/VegaPyramideBMDtab.txt",
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/VegaPyramideBMDtab.txt",
     "name": "table",
     "format": {
       "type": "tsv",
