@@ -40,7 +40,7 @@
           "type": "ordinal",
           "axis": {
             "title": "Jaar",
-            "labelFontSize": 20,
+            "labelFontSize": 16,
             "titleFontSize": 20
           }
         },
