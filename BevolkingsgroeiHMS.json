@@ -1,5 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 600,
   "description": "Totale bevolking en 65+ bevolking in Heemstede",
   "data": {
     "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
@@ -36,12 +38,20 @@
         "x": {
           "field": "Perioden",
           "type": "ordinal",
-          "title": "Jaar"
+          "axis": {
+            "title": "Jaar",
+            "labelFontSize": 20,
+            "titleFontSize": 20
+          }
         },
         "y": {
           "field": "aantal",
           "type": "quantitative",
-          "title": "Aantal personen"
+          "axis": {
+            "title": "Aantal personen",
+            "labelFontSize": 14,
+            "titleFontSize": 20
+          }
         },
         "color": {
           "field": "categorie",
@@ -52,7 +62,9 @@
           },
           "legend": {
             "title": "Bevolkingsgroep",
-            "orient": "top"
+            "orient": "top",
+            "labelFontSize": 16,
+            "titleFontSize": 20
           }
         },
         "tooltip": [
@@ -88,11 +100,21 @@
       "encoding": {
         "x": {
           "field": "Perioden",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis": {
+            "title": "Jaar",
+            "labelFontSize": 20,
+            "titleFontSize": 20
+          }
         },
         "y": {
           "field": "aantal",
-          "type": "quantitative"
+          "type": "quantitative",
+          "axis": {
+            "title": "Aantal personen",
+            "labelFontSize": 14,
+            "titleFontSize": 20
+          }
         },
         "color": {
           "field": "categorie",
