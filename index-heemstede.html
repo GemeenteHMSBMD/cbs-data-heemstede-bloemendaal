@@ -174,106 +174,74 @@
       };
 
 const spec65plus = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Totale bevolking, 65+ en 60+ bevolking in Heemstede",
-  "width": 700,
-  "height": 300,
-  "data": {
-    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
-    "format": { "type": "tsv" }
-  },
-  "transform": [
-    { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
-  ],
-  "layer": [
-    // Totale bevolking
-    {
-      "transform": [
-        {
-          "aggregate": [
-            { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
-          ],
-          "groupby": ["Perioden"]
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Totale bevolking en 65+ bevolking in Heemstede",
+        "width": 700,
+        "height": 300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
+          "format": { "type": "tsv" }
         },
-        { "calculate": "'Totale bevolking'", "as": "categorie" }
-      ],
-      "mark": { "type": "area", "opacity": 0.6 },
-      "encoding": {
-        "x": { "field": "Perioden", "type": "ordinal", "title": "Jaar" },
-        "y": { "field": "aantal", "type": "quantitative", "title": "Aantal personen" },
-        "color": {
-          "field": "categorie",
-          "type": "nominal",
-          "scale": {
-            "domain": ["Totale bevolking", "Bevolking 65+", "Bevolking 60+"],
-            "range": ["#a6cee3", "#1f78b4", "#33a02c"]
+        "transform": [
+          { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
+        ],
+        "layer": [
+          {
+            "transform": [
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Totale bevolking'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal", "title": "Jaar" },
+              "y": { "field": "aantal", "type": "quantitative", "title": "Aantal personen" },
+              "color": {
+                "field": "categorie",
+                "type": "nominal",
+                "scale": {
+                  "domain": ["Totale bevolking", "Bevolking 65+"],
+                  "range": ["#a6cee3", "#1f78b4"]
+                },
+                "legend": {
+                  "title": "Bevolkingsgroep",
+                  "orient": "top"
+                }
+              },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Totale bevolking" }
+              ]
+            }
           },
-          "legend": {
-            "title": "Bevolkingsgroep",
-            "orient": "top"
+          {
+            "transform": [
+              { "filter": "toNumber(datum['Leeftijd']) >= 65" },
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Bevolking 65+'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal" },
+              "y": { "field": "aantal", "type": "quantitative" },
+              "color": { "field": "categorie", "type": "nominal" },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Bevolking 65+" }
+              ]
+            }
           }
-        },
-        "tooltip": [
-          { "field": "Perioden", "title": "Jaar" },
-          { "field": "aantal", "title": "Totale bevolking" }
         ]
-      }
-    },
-    // Bevolking 65+
-    {
-      "transform": [
-        { "filter": "toNumber(datum['Leeftijd']) >= 65" },
-        {
-          "aggregate": [
-            { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
-          ],
-          "groupby": ["Perioden"]
-        },
-        { "calculate": "'Bevolking 65+'", "as": "categorie" }
-      ],
-      "mark": { "type": "area", "opacity": 0.6 },
-      "encoding": {
-        "x": { "field": "Perioden", "type": "ordinal" },
-        "y": { "field": "aantal", "type": "quantitative" },
-        "color": {
-          "field": "categorie",
-          "type": "nominal"
-        },
-        "tooltip": [
-          { "field": "Perioden", "title": "Jaar" },
-          { "field": "aantal", "title": "Bevolking 65+" }
-        ]
-      }
-    },
-    // Bevolking 60+
-    {
-      "transform": [
-        { "filter": "toNumber(datum['Leeftijd']) >= 60" },
-        {
-          "aggregate": [
-            { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
-          ],
-          "groupby": ["Perioden"]
-        },
-        { "calculate": "'Bevolking 60+'", "as": "categorie" }
-      ],
-      "mark": { "type": "area", "opacity": 0.6 },
-      "encoding": {
-        "x": { "field": "Perioden", "type": "ordinal" },
-        "y": { "field": "aantal", "type": "quantitative" },
-        "color": {
-          "field": "categorie",
-          "type": "nominal"
-        },
-        "tooltip": [
-          { "field": "Perioden", "title": "Jaar" },
-          { "field": "aantal", "title": "Bevolking 60+" }
-        ]
-      }
-    }
-  ]
-};
-
+      };
 
       const specGebouwdePanden = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
