@@ -7,415 +7,309 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
     <style>
-      body {
-        font-family: "Avenir Next", "Segoe UI", sans-serif;
-        background: #f9f9f9;
-        padding: 2rem;
-        margin: 0;
-      }
+  body {
+    font-family: "Avenir Next", "Segoe UI", sans-serif;
+    background: #f9f9f9;
+    padding: 2rem;
+    margin: 0;
+  }
 
-      .container {
-        max-width: 900px;
-        margin: auto;
-        background: white;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
+  .container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
-      h1,
-      h2 {
-        text-align: left;
-      }
+  h1, h2 {
+    text-align: left;
+  }
 
-      .uitleg.welkom {
-        font-size: 4rem; /* ongeveer gelijk aan --level-1-font-size */
-        line-height: 1.5;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 2rem;
-      }
+  .uitleg.welkom {
+    font-size: 4rem; /* ongeveer gelijk aan --level-1-font-size */
+    line-height: 1.5;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-      .uitleg {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        text-align: left;
-        margin-bottom: 2rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="uitleg welkom">Welkom!</div>
-      <div class="uitleg">
-        Op deze pagina vind je interactieve visualisaties over de
-        bevolkingsontwikkeling en gebouwde omgeving in de gemeente Heemstede.
-      </div>
+  .uitleg {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="uitleg welkom">
+      Welkom!
+    </div>
+    <div class="uitleg">
+      Op deze pagina vind je interactieve visualisaties over de bevolkingsontwikkeling en gebouwde omgeving in de gemeente Heemstede.
+    </div>
 
-      <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
-      <div class="uitleg">
-        Deze bevolkingspiramide laat de opbouw van de bevolking per leeftijd en
-        geslacht zien. Gebruik de schuif onderin om een jaar te kiezen en zie
-        hoe de verdeling verandert over de tijd.
-      </div>
-      <div id="vis"></div>
+  <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
+  <div class="uitleg">
+    Deze bevolkingspiramide laat de opbouw van de bevolking per leeftijd en geslacht zien. Gebruik de schuif onderin om een jaar te kiezen en zie hoe de verdeling verandert over de tijd.
+  </div>
+  <div id="vis"></div>
 
       <h2>Ontwikkeling totale bevolking en 65+ in Heemstede</h2>
       <div class="uitleg">
-        Deze visualisatie toont de ontwikkeling van het totaal aantal inwoners
-        én het aandeel 65-plussers in Heemstede over meerdere jaren.
+        Deze visualisatie toont de ontwikkeling van het totaal aantal inwoners én het aandeel 65-plussers in Heemstede over meerdere jaren.
       </div>
       <div id="bevolking65plus"></div>
 
       <h2>Gebouwde panden per bouwjaar in Heemstede</h2>
       <div class="uitleg">
-        Hier zie je het aantal gebouwen dat per bouwjaar in Heemstede is
-        geregistreerd. De grafiek toont historische groei.
+        Hier zie je het aantal gebouwen dat per bouwjaar in Heemstede is geregistreerd. De grafiek toont historische groei.
       </div>
       <div id="gebouwdePanden"></div>
-
-      <h2>Woningvoorraad per oppervlakteklasse en woningtype (selecteer jaar)</h2>
-      <div class="uitleg">
-        Hier zie je het aantal woningen per woningtype en oppervlakteklasse. Gebruik de slider om het jaar te wijzigen.
-      </div>
-      <div id="woningvoorraadVerdeling"></div>
-
-      <h2>Ontwikkeling totale woningvoorraad per woningtype in Heemstede over jaren</h2>
-      <div class="uitleg">
-        Deze lijngrafiek toont de ontwikkeling van de totale woningvoorraad per woningtype over meerdere jaren.
-      </div>
-      <div id="woningvoorraadOntwikkeling"></div>
-    </div>
+  </div>
 
     <script type="text/javascript">
       const specPiramide = {
-        // Jouw bestaande bevolkingspiramide spec hier, onveranderd
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        width: 700,
-        height: 400,
-        data: {
-          url:
-            "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/VegaPyramideHMStab.txt",
-          format: {
-            type: "tsv",
-            parse: {
-              jaar: "number",
-              mannen: "number",
-              vrouwen: "number",
-              leeftijd: "number",
-            },
-          },
+        "width": 700,
+        "height": 400,
+        "data": {
+          "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/VegaPyramideHMStab.txt",
+          "format": {
+            "type": "tsv",
+            "parse": {
+              "jaar": "number",
+              "mannen": "number",
+              "vrouwen": "number",
+              "leeftijd": "number"
+            }
+          }
         },
-        transform: [
-          { filter: "datum.jaar == jaar" },
-          { calculate: "datum.mannen * -1", as: "_mannen" },
-          { calculate: "datum.jaar - datum.leeftijd", as: "geboortejaar" },
+        "transform": [
+          { "filter": "datum.jaar == jaar" },
+          { "calculate": "datum.mannen * -1", "as": "_mannen" },
+          { "calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar" },
           {
-            calculate:
-              "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
-            as: "_geboortejaartooltip",
+            "calculate": "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
+            "as": "_geboortejaartooltip"
           },
           {
-            calculate: "if(datum.leeftijd > 99, '+100', datum.leeftijd)",
-            as: "_leeftijdtooltip",
+            "calculate": "if(datum.leeftijd > 99, '+100', datum.leeftijd)",
+            "as": "_leeftijdtooltip"
           },
           {
-            fold: ["_mannen", "vrouwen"],
-            as: ["geslacht", "aantal"],
+            "fold": ["_mannen", "vrouwen"],
+            "as": ["geslacht", "aantal"]
           },
           {
-            calculate: "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
-            as: "GeslachtLabel",
+            "calculate": "datum.geslacht == '_mannen' ? 'Mannen' : 'Vrouwen'",
+            "as": "GeslachtLabel"
           },
           {
-            calculate: "abs(datum.aantal)",
-            as: "_aantalTooltip",
-          },
+            "calculate": "abs(datum.aantal)",
+            "as": "_aantalTooltip"
+          }
         ],
-        encoding: {
-          y: {
-            field: "leeftijd",
-            type: "ordinal",
-            sort: "descending",
-            axis: {
-              title: "Leeftijd",
-              labelFontSize: 12,
-              labelFontWeight: "bold",
-              labelExpr: "datum.value % 10 === 0 ? datum.value : ''",
-            },
+        "encoding": {
+          "y": {
+            "field": "leeftijd",
+            "type": "ordinal",
+            "sort": "descending",
+            "axis": {
+              "title": "Leeftijd",
+              "labelFontSize": 12,
+              "labelFontWeight": "bold",
+              "labelExpr": "datum.value % 10 === 0 ? datum.value : ''"
+            }
           },
-          x: {
-            field: "aantal",
-            type: "quantitative",
-            axis: {
-              title: "Aantal personen",
-              format: ",d",
-              labelExpr: "abs(datum.value)",
+          "x": {
+            "field": "aantal",
+            "type": "quantitative",
+            "axis": {
+              "title": "Aantal personen",
+              "format": ",d",
+              "labelExpr": "abs(datum.value)"
             },
-            scale: { domain: [-250, 250] },
+            "scale": { "domain": [-250, 250] }
           },
-          color: {
-            field: "GeslachtLabel",
-            type: "nominal",
-            scale: {
-              domain: ["Mannen", "Vrouwen"],
-              range: ["#a6cee3", "#1f78b4"],
+          "color": {
+            "field": "GeslachtLabel",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Mannen", "Vrouwen"],
+              "range": ["#a6cee3", "#1f78b4"]
             },
-            legend: {
-              title: "Geslacht",
-              orient: "top",
-            },
+            "legend": {
+              "title": "Geslacht",
+              "orient": "top"
+            }
           },
-          tooltip: [
-            { field: "_geboortejaartooltip", title: "Geboortejaar" },
-            { field: "_leeftijdtooltip", title: "Leeftijd" },
-            { field: "_aantalTooltip", title: "Aantal" },
-            { field: "GeslachtLabel", title: "Geslacht" },
-          ],
+          "tooltip": [
+            { "field": "_geboortejaartooltip", "title": "Geboortejaar" },
+            { "field": "_leeftijdtooltip", "title": "Leeftijd" },
+            { "field": "_aantalTooltip", "title": "Aantal" },
+            { "field": "GeslachtLabel", "title": "Geslacht" }
+          ]
         },
-        mark: {
-          type: "bar",
-          tooltip: true,
+        "mark": {
+          "type": "bar",
+          "tooltip": true
         },
-        params: [
+        "params": [
           {
-            name: "jaar",
-            value: 1988,
-            bind: {
-              input: "range",
-              min: 1988,
-              max: 2024,
-              step: 1,
-              name: "Jaar: ",
-            },
-          },
-        ],
+            "name": "jaar",
+            "value": 1988,
+            "bind": {
+              "input": "range",
+              "min": 1988,
+              "max": 2024,
+              "step": 1,
+              "name": "Jaar: "
+            }
+          }
+        ]
       };
 
-      const spec65plus = {
-        // Jouw bestaande 65+ visualisatie spec
+const spec65plus = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        description: "Totale bevolking en 65+ bevolking in Heemstede",
-        width: 700,
-        height: 300,
-        data: {
-          url:
-            "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
-          format: { type: "tsv" },
+        "description": "Totale bevolking en 65+ bevolking in Heemstede",
+        "width": 700,
+        "height": 300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
+          "format": { "type": "tsv" }
         },
-        transform: [{ filter: "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }],
-        layer: [
-          {
-            transform: [
-              {
-                aggregate: [
-                  { op: "sum", field: "Bevolking op 1 januari", as: "aantal" },
-                ],
-                groupby: ["Perioden"],
-              },
-              { calculate: "'Totale bevolking'", as: "categorie" },
-            ],
-            mark: { type: "area", opacity: 0.6 },
-            encoding: {
-              x: { field: "Perioden", type: "ordinal", title: "Jaar" },
-              y: { field: "aantal", type: "quantitative", title: "Aantal personen" },
-              color: {
-                field: "categorie",
-                type: "nominal",
-                scale: {
-                  domain: ["Totale bevolking", "Bevolking 65+"],
-                  range: ["#a6cee3", "#1f78b4"],
-                },
-                legend: {
-                  title: "Bevolkingsgroep",
-                  orient: "top",
-                },
-              },
-              tooltip: [
-                { field: "Perioden", title: "Jaar" },
-                { field: "aantal", title: "Totale bevolking" },
-              ],
-            },
-          },
-          {
-            transform: [
-              { filter: "toNumber(datum['Leeftijd']) >= 65" },
-              {
-                aggregate: [
-                  { op: "sum", field: "Bevolking op 1 januari", as: "aantal" },
-                ],
-                groupby: ["Perioden"],
-              },
-              { calculate: "'Bevolking 65+'", as: "categorie" },
-            ],
-            mark: { type: "area", opacity: 0.6 },
-            encoding: {
-              x: { field: "Perioden", type: "ordinal" },
-              y: { field: "aantal", type: "quantitative" },
-              color: { field: "categorie", type: "nominal" },
-              tooltip: [
-                { field: "Perioden", title: "Jaar" },
-                { field: "aantal", title: "Bevolking 65+" },
-              ],
-            },
-          },
+        "transform": [
+          { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
         ],
+        "layer": [
+          {
+            "transform": [
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Totale bevolking'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal", "title": "Jaar" },
+              "y": { "field": "aantal", "type": "quantitative", "title": "Aantal personen" },
+              "color": {
+                "field": "categorie",
+                "type": "nominal",
+                "scale": {
+                  "domain": ["Totale bevolking", "Bevolking 65+"],
+                  "range": ["#a6cee3", "#1f78b4"]
+                },
+                "legend": {
+                  "title": "Bevolkingsgroep",
+                  "orient": "top"
+                }
+              },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Totale bevolking" }
+              ]
+            }
+          },
+          {
+            "transform": [
+              { "filter": "toNumber(datum['Leeftijd']) >= 65" },
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Bevolking 65+'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal" },
+              "y": { "field": "aantal", "type": "quantitative" },
+              "color": { "field": "categorie", "type": "nominal" },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Bevolking 65+" }
+              ]
+            }
+          }
+        ]
       };
 
       const specGebouwdePanden = {
-        // Jouw bestaande gebouwde panden spec
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        description: "Aantal gebouwde panden per bouwjaar in Heemstede",
-        width: 800,
-        height: 400,
-        data: {
-          url:
-            "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/BAG%20data%20tekst.txt",
-          format: {
-            type: "tsv",
-          },
-        },
-        transform: [
-          {
-            filter:
-              "datum['GEMEENTENAAM'] === 'Heemstede' && isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null",
-          },
-          {
-            calculate: "toNumber(datum['BOUWJAAR'])",
-            as: "Bouwjaar",
-          },
-          {
-            filter: "datum.Bouwjaar >= 1800 && datum.Bouwjaar <= 2025",
-          },
-        ],
-        mark: {
-          type: "area",
-          interpolate: "monotone",
-          color: "#FF1493",
-          opacity: 0.6,
-        },
-        encoding: {
-          x: {
-            field: "Bouwjaar",
-            type: "quantitative",
-            title: "Bouwjaar",
-            axis: {
-              tickMinStep: 10,
-              labelFontSize: 14,
-              titleFontSize: 16,
-              format: "d",
-            },
-          },
-          y: {
-            aggregate: "count",
-            title: "Aantal panden",
-            axis: {
-              labelFontSize: 14,
-              titleFontSize: 16,
-            },
-          },
-          tooltip: [
-            { field: "Bouwjaar", title: "Bouwjaar" },
-            { aggregate: "count", title: "Aantal panden" },
-          ],
-        },
-      };
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Aantal gebouwde panden per bouwjaar in Heemstede",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/BAG%20data%20tekst.txt",
+    "format": {
+      "type": "tsv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum['GEMEENTENAAM'] === 'Heemstede' && isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null"
+    },
+    {
+      "calculate": "toNumber(datum['BOUWJAAR'])",
+      "as": "Bouwjaar"
+    },
+    {
+      "filter": "datum.Bouwjaar >= 1800 && datum.Bouwjaar <= 2025"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "color": "#FF1493",
+    "opacity": 0.6
+  },
+  "encoding": {
+    "x": {
+      "field": "Bouwjaar",
+      "type": "quantitative",
+      "title": "Bouwjaar",
+      "axis": {
+        "tickMinStep": 10,
+        "labelFontSize": 14,
+        "titleFontSize": 16,
+        "format": "d"
+      }
+    },
+    "y": {
+      "aggregate": "count",
+      "title": "Aantal panden",
+      "axis": {
+        "labelFontSize": 14,
+        "titleFontSize": 16
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Bouwjaar",
+        "type": "quantitative",
+        "title": "Bouwjaar"
+      },
+      {
+        "aggregate": "count",
+        "title": "Aantal panden"
+      }
+    ]
+  }
+};
 
-      // Nieuwe visualisatie 1: Bar chart met slider voor woningvoorraad
-      const specWoningvoorraadVerdeling = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        description: "Woningvoorraad per oppervlakteklasse en woningtype (selecteer jaar)",
-        width: 800,
-        height: 350,
-        data: {
-          url: "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
-          format: {
-            type: "tsv",
-            parse: {
-              jaar: "number",
-              woningtype: "string",
-              oppervlakteklasse: "string",
-              aantal: "number"
-            }
-          }
-        },
-        params: [
-          {
-            name: "jaar",
-            value: 2020,
-            bind: {
-              input: "range",
-              min: 2010,
-              max: 2024,
-              step: 1,
-              name: "Jaar: "
-            }
-          }
-        ],
-        transform: [
-          { filter: "datum.jaar == jaar" }
-        ],
-        mark: "bar",
-        encoding: {
-          x: { field: "oppervlakteklasse", type: "ordinal", title: "Oppervlakteklasse (m²)" },
-          y: { field: "aantal", type: "quantitative", title: "Aantal woningen" },
-          color: { field: "woningtype", type: "nominal", title: "Woningtype" },
-          tooltip: [
-            { field: "woningtype", title: "Woningtype" },
-            { field: "oppervlakteklasse", title: "Oppervlakteklasse" },
-            { field: "aantal", title: "Aantal woningen" },
-            { field: "jaar", title: "Jaar" }
-          ],
-          column: { field: "woningtype", header: { labelAngle: 0, title: null } }
-        }
-      };
-
-      // Nieuwe visualisatie 2: Lijngrafiek totale woningvoorraad per woningtype over jaren
-      const specWoningvoorraadOntwikkeling = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        description: "Ontwikkeling woningvoorraad per woningtype in Heemstede over jaren",
-        width: 800,
-        height: 350,
-        data: {
-          url: "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
-          format: {
-            type: "tsv",
-            parse: {
-              jaar: "number",
-              woningtype: "string",
-              aantal: "number"
-            }
-          }
-        },
-        transform: [
-          {
-            aggregate: [
-              { op: "sum", field: "aantal", as: "totaal_aantal" }
-            ],
-            groupby: ["jaar", "woningtype"]
-          }
-        ],
-        mark: {
-          type: "line",
-          point: true
-        },
-        encoding: {
-          x: { field: "jaar", type: "ordinal", title: "Jaar" },
-          y: { field: "totaal_aantal", type: "quantitative", title: "Aantal woningen" },
-          color: { field: "woningtype", type: "nominal", title: "Woningtype" },
-          tooltip: [
-            { field: "jaar", title: "Jaar" },
-            { field: "woningtype", title: "Woningtype" },
-            { field: "totaal_aantal", title: "Aantal woningen" }
-          ]
-        }
-      };
-
-      vegaEmbed("#vis", specPiramide, { actions: false });
-      vegaEmbed("#bevolking65plus", spec65plus, { actions: false });
-      vegaEmbed("#gebouwdePanden", specGebouwdePanden, { actions: false });
-      vegaEmbed("#woningvoorraadVerdeling", specWoningvoorraadVerdeling, { actions: false });
-      vegaEmbed("#woningvoorraadOntwikkeling", specWoningvoorraadOntwikkeling, { actions: false });
+      vegaEmbed("#vis", specPiramide, { actions: false }).catch(console.error);
+      vegaEmbed("#bevolking65plus", spec65plus, { actions: false }).catch(console.error);
+      vegaEmbed("#gebouwdePanden", specGebouwdePanden, { actions: false }).catch(console.error);
+      
     </script>
   </body>
 </html>
