@@ -1,0 +1,78 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Donut chart met labels midden in segmenten",
+  "width": 400,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/heemstede_bevolking_MV.txt",
+    "format": { "type": "tsv" }
+  },
+  "params": [
+    {
+      "name": "jaar",
+      "value": 2022,
+      "bind": {
+        "input": "range",
+        "min": 2012,
+        "max": 2025,
+        "step": 1,
+        "name": "Kies een jaar: "
+      }
+    }
+  ],
+  "transform": [
+    { "filter": "datum.Jaar == jaar" },
+    { "filter": "datum.Gemeente == 'Heemstede'" },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "Bevolking op 1 januari",
+          "as": "totaal"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['Bevolking op 1 januari'] / datum.totaal * 100",
+      "as": "percentage"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "outerRadius": 120,
+        "innerRadius": 70
+      },
+      "encoding": {
+        "theta": { "field": "Bevolking op 1 januari", "type": "quantitative" },
+        "color": {
+          "field": "Geslacht",
+          "type": "nominal",
+          "legend": { "title": "Geslacht" },
+          "scale": { "scheme": "category10" }
+        },
+        "tooltip": [
+          { "field": "Geslacht", "type": "nominal", "title": "Geslacht" },
+          { "field": "Bevolking op 1 januari", "type": "quantitative", "title": "Aantal" },
+          { "field": "percentage", "type": "quantitative", "title": "Percentage", "format": ".1f" }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radius": 95,
+        "size": 16,
+        "fontWeight": "bold",
+        "color": "white",
+        "align": "center",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "theta": { "field": "Bevolking op 1 januari", "type": "quantitative" },
+        "text": { "field": "percentage", "type": "quantitative", "format": ".1f" }
+      }
+    }
+  ]
+}
