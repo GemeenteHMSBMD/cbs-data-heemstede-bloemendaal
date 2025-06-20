@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <title>Heemstede Visualisaties</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      margin-top: 2rem;
+    }
+
+    .uitleg {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Woningvoorraad Heemstede</h1>
+    <div class="uitleg">
+      Onderstaande grafieken tonen de verdeling van de woningvoorraad naar oppervlakteklasse en woningtype voor een gekozen jaar, en de ontwikkeling over tijd.
+    </div>
+
+    <h2>Verdeling naar oppervlakte en type (per jaar)</h2>
+    <div id="woningvoorraadVerdeling"></div>
+
+    <h2>Ontwikkeling van woningvoorraad per type</h2>
+    <div id="woningvoorraadOntwikkeling"></div>
+  </div>
+
+  <script>
+    const specWoningvoorraadVerdeling = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Woningvoorraad Heemstede: verdeling en totalen",
+      "params": [
+        {
+          "name": "jaar",
+          "value": 2012,
+          "bind": {
+            "input": "range",
+            "min": 2012,
+            "max": 2025,
+            "step": 1,
+            "name": "Kies een jaar: "
+          }
+        }
+      ],
+      "vconcat": [
+        {
+          "width": 1000,
+          "data": {
+            "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
+            "format": { "type": "tsv" }
+          },
+          "transform": [
+            {
+              "filter": "datum.Gemeente === 'Heemstede' && datum.Jaar == jaar && datum.Oppervlakteklasse !== 'Totaal'"
+            }
+          ],
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "field": "Oppervlakteklasse",
+              "type": "ordinal",
+              "sort": [
+                "< 20", "20 tot 30", "30 tot 40", "40 tot 50", "50 tot 60",
+                "60 tot 70", "70 tot 80", "80 tot 90", "90 tot 100",
+                "100 tot 120", "120 tot 140", "140 tot 160", "160 en meer"
+              ],
+              "title": "Oppervlakteklasse (m²)",
+              "axis": { "labelAngle": -40 }
+            },
+            "y": {
+              "field": "Beginstand woningvoorraad",
+              "type": "quantitative",
+              "title": "Aantal woningen"
+            },
+            "color": {
+              "field": "Woningtype",
+              "type": "nominal",
+              "title": "Woningtype",
+              "scale": { "scheme": "dark2" }
+            },
+            "tooltip": [
+              { "field": "Jaar" },
+              { "field": "Woningtype" },
+              { "field": "Oppervlakteklasse" },
+              { "field": "Beginstand woningvoorraad" }
+            ]
+          }
+        },
+        {
+          "width": 1000,
+          "data": {
+            "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
+            "format": { "type": "tsv" }
+          },
+          "transform": [
+            {
+              "filter": "datum.Gemeente === 'Heemstede' && datum.Jaar == jaar && datum.Oppervlakteklasse === 'Totaal'"
+            }
+          ],
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "field": "Woningtype",
+              "type": "nominal",
+              "title": "Woningtype"
+            },
+            "y": {
+              "field": "Beginstand woningvoorraad",
+              "type": "quantitative",
+              "title": "Totaal aantal woningen"
+            },
+            "color": {
+              "field": "Woningtype",
+              "type": "nominal",
+              "scale": { "scheme": "dark2" },
+              "title": "Woningtype"
+            },
+            "tooltip": [
+              { "field": "Jaar" },
+              { "field": "Woningtype" },
+              { "field": "Beginstand woningvoorraad" }
+            ]
+          }
+        }
+      ]
+    };
+
+    const specWoningvoorraadOntwikkeling = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Line graph: totale woningvoorraad per woningtype in Heemstede over jaren",
+      "width": 800,
+      "height": 400,
+      "data": {
+        "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
+        "format": { "type": "tsv" }
+      },
+      "transform": [
+        {
+          "filter": "datum.Gemeente === 'Heemstede' && datum.Oppervlakteklasse === 'Totaal'"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": true
+      },
+      "encoding": {
+        "x": {
+          "field": "Jaar",
+          "type": "ordinal",
+          "title": "Jaar"
+        },
+        "y": {
+          "field": "Beginstand woningvoorraad",
+          "type": "quantitative",
+          "title": "Totaal aantal woningen",
+          "axis": { "titlePadding": 20 }
+        },
+        "color": {
+          "field": "Woningtype",
+          "type": "nominal",
+          "scale": { "scheme": "dark2" },
+          "title": "Woningtype"
+        },
+        "tooltip": [
+          { "field": "Jaar" },
+          { "field": "Woningtype" },
+          { "field": "Beginstand woningvoorraad" }
+        ]
+      }
+    };
+
+    vegaEmbed("#woningvoorraadVerdeling", specWoningvoorraadVerdeling, { actions: false }).catch(console.error);
+    vegaEmbed("#woningvoorraadOntwikkeling", specWoningvoorraadOntwikkeling, { actions: false }).catch(console.error);
+  </script>
+</body>
+</html>
