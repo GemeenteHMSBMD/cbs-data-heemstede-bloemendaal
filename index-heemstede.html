@@ -186,6 +186,7 @@ const spec65plus = {
     { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
   ],
   "layer": [
+    // Totale bevolking
     {
       "transform": [
         {
@@ -205,7 +206,7 @@ const spec65plus = {
           "type": "nominal",
           "scale": {
             "domain": ["Totale bevolking", "Bevolking 65+", "Bevolking 60+"],
-            "range": ["#a6cee3", "#1f78b4", "#b2df8a"]
+            "range": ["#a6cee3", "#1f78b4", "#33a02c"]
           },
           "legend": {
             "title": "Bevolkingsgroep",
@@ -218,6 +219,7 @@ const spec65plus = {
         ]
       }
     },
+    // Bevolking 65+
     {
       "transform": [
         { "filter": "toNumber(datum['Leeftijd']) >= 65" },
@@ -233,13 +235,21 @@ const spec65plus = {
       "encoding": {
         "x": { "field": "Perioden", "type": "ordinal" },
         "y": { "field": "aantal", "type": "quantitative" },
-        "color": { "field": "categorie", "type": "nominal" },
+        "color": {
+          "field": "categorie",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Totale bevolking", "Bevolking 65+", "Bevolking 60+"],
+            "range": ["#a6cee3", "#1f78b4", "#33a02c"]
+          }
+        },
         "tooltip": [
           { "field": "Perioden", "title": "Jaar" },
           { "field": "aantal", "title": "Bevolking 65+" }
         ]
       }
     },
+    // Bevolking 60+
     {
       "transform": [
         { "filter": "toNumber(datum['Leeftijd']) >= 60" },
@@ -255,7 +265,14 @@ const spec65plus = {
       "encoding": {
         "x": { "field": "Perioden", "type": "ordinal" },
         "y": { "field": "aantal", "type": "quantitative" },
-        "color": { "field": "categorie", "type": "nominal" },
+        "color": {
+          "field": "categorie",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Totale bevolking", "Bevolking 65+", "Bevolking 60+"],
+            "range": ["#a6cee3", "#1f78b4", "#33a02c"]
+          }
+        },
         "tooltip": [
           { "field": "Perioden", "title": "Jaar" },
           { "field": "aantal", "title": "Bevolking 60+" }
@@ -264,6 +281,7 @@ const spec65plus = {
     }
   ]
 };
+
       const specGebouwdePanden = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Aantal gebouwde panden per bouwjaar in Heemstede",
