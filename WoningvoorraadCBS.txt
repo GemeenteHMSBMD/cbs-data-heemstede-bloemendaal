@@ -1,0 +1,379 @@
+Woningtype	Oppervlakteklasse	Jaar	Gemeente	Beginstand woningvoorraad
+Totaal	Totaal	2012	Heemstede	11751
+Totaal	Totaal	2013	Heemstede	11813
+Totaal	Totaal	2014	Heemstede	12247
+Totaal	Totaal	2015	Heemstede	12321
+Totaal	Totaal	2016	Heemstede	12520
+Totaal	Totaal	2017	Heemstede	12511
+Totaal	Totaal	2018	Heemstede	12561
+Totaal	Totaal	2019	Heemstede	12587
+Totaal	Totaal	2020	Heemstede	12628
+Totaal	Totaal	2021	Heemstede	12817
+Totaal	Totaal	2022	Heemstede	12821
+Totaal	Totaal	2023	Heemstede	12863
+Totaal	Totaal	2024	Heemstede	12897
+Totaal	Totaal	2025	Heemstede	12841
+Totaal	2 tot 15 m²	2012	Heemstede	2
+Totaal	2 tot 15 m²	2013	Heemstede	2
+Totaal	2 tot 15 m²	2014	Heemstede	2
+Totaal	2 tot 15 m²	2015	Heemstede	0
+Totaal	2 tot 15 m²	2016	Heemstede	0
+Totaal	2 tot 15 m²	2017	Heemstede	0
+Totaal	2 tot 15 m²	2018	Heemstede	0
+Totaal	2 tot 15 m²	2019	Heemstede	0
+Totaal	2 tot 15 m²	2020	Heemstede	0
+Totaal	2 tot 15 m²	2021	Heemstede	0
+Totaal	2 tot 15 m²	2022	Heemstede	0
+Totaal	2 tot 15 m²	2023	Heemstede	0
+Totaal	2 tot 15 m²	2024	Heemstede	0
+Totaal	2 tot 15 m²	2025	Heemstede	0
+Totaal	15 tot 50 m²	2012	Heemstede	400
+Totaal	15 tot 50 m²	2013	Heemstede	402
+Totaal	15 tot 50 m²	2014	Heemstede	712
+Totaal	15 tot 50 m²	2015	Heemstede	729
+Totaal	15 tot 50 m²	2016	Heemstede	782
+Totaal	15 tot 50 m²	2017	Heemstede	780
+Totaal	15 tot 50 m²	2018	Heemstede	787
+Totaal	15 tot 50 m²	2019	Heemstede	791
+Totaal	15 tot 50 m²	2020	Heemstede	795
+Totaal	15 tot 50 m²	2021	Heemstede	792
+Totaal	15 tot 50 m²	2022	Heemstede	794
+Totaal	15 tot 50 m²	2023	Heemstede	833
+Totaal	15 tot 50 m²	2024	Heemstede	845
+Totaal	15 tot 50 m²	2025	Heemstede	788
+Totaal	50 tot 75 m²	2012	Heemstede	1479
+Totaal	50 tot 75 m²	2013	Heemstede	1492
+Totaal	50 tot 75 m²	2014	Heemstede	1532
+Totaal	50 tot 75 m²	2015	Heemstede	1549
+Totaal	50 tot 75 m²	2016	Heemstede	1555
+Totaal	50 tot 75 m²	2017	Heemstede	1546
+Totaal	50 tot 75 m²	2018	Heemstede	1551
+Totaal	50 tot 75 m²	2019	Heemstede	1551
+Totaal	50 tot 75 m²	2020	Heemstede	1553
+Totaal	50 tot 75 m²	2021	Heemstede	1610
+Totaal	50 tot 75 m²	2022	Heemstede	1456
+Totaal	50 tot 75 m²	2023	Heemstede	1461
+Totaal	50 tot 75 m²	2024	Heemstede	1470
+Totaal	50 tot 75 m²	2025	Heemstede	1469
+Totaal	75 tot 100 m²	2012	Heemstede	2559
+Totaal	75 tot 100 m²	2013	Heemstede	2590
+Totaal	75 tot 100 m²	2014	Heemstede	2607
+Totaal	75 tot 100 m²	2015	Heemstede	2625
+Totaal	75 tot 100 m²	2016	Heemstede	2643
+Totaal	75 tot 100 m²	2017	Heemstede	2635
+Totaal	75 tot 100 m²	2018	Heemstede	2624
+Totaal	75 tot 100 m²	2019	Heemstede	2617
+Totaal	75 tot 100 m²	2020	Heemstede	2596
+Totaal	75 tot 100 m²	2021	Heemstede	2575
+Totaal	75 tot 100 m²	2022	Heemstede	2480
+Totaal	75 tot 100 m²	2023	Heemstede	2536
+Totaal	75 tot 100 m²	2024	Heemstede	2532
+Totaal	75 tot 100 m²	2025	Heemstede	2545
+Totaal	100 tot 150 m²	2012	Heemstede	4124
+Totaal	100 tot 150 m²	2013	Heemstede	4127
+Totaal	100 tot 150 m²	2014	Heemstede	4174
+Totaal	100 tot 150 m²	2015	Heemstede	4196
+Totaal	100 tot 150 m²	2016	Heemstede	4265
+Totaal	100 tot 150 m²	2017	Heemstede	4259
+Totaal	100 tot 150 m²	2018	Heemstede	4272
+Totaal	100 tot 150 m²	2019	Heemstede	4275
+Totaal	100 tot 150 m²	2020	Heemstede	4276
+Totaal	100 tot 150 m²	2021	Heemstede	4356
+Totaal	100 tot 150 m²	2022	Heemstede	4102
+Totaal	100 tot 150 m²	2023	Heemstede	4046
+Totaal	100 tot 150 m²	2024	Heemstede	4044
+Totaal	100 tot 150 m²	2025	Heemstede	4029
+Totaal	150 tot 250 m²	2012	Heemstede	2752
+Totaal	150 tot 250 m²	2013	Heemstede	2767
+Totaal	150 tot 250 m²	2014	Heemstede	2783
+Totaal	150 tot 250 m²	2015	Heemstede	2787
+Totaal	150 tot 250 m²	2016	Heemstede	2805
+Totaal	150 tot 250 m²	2017	Heemstede	2823
+Totaal	150 tot 250 m²	2018	Heemstede	2855
+Totaal	150 tot 250 m²	2019	Heemstede	2877
+Totaal	150 tot 250 m²	2020	Heemstede	2927
+Totaal	150 tot 250 m²	2021	Heemstede	2996
+Totaal	150 tot 250 m²	2022	Heemstede	3281
+Totaal	150 tot 250 m²	2023	Heemstede	3311
+Totaal	150 tot 250 m²	2024	Heemstede	3350
+Totaal	150 tot 250 m²	2025	Heemstede	3366
+Totaal	250 tot 500 m²	2012	Heemstede	404
+Totaal	250 tot 500 m²	2013	Heemstede	402
+Totaal	250 tot 500 m²	2014	Heemstede	400
+Totaal	250 tot 500 m²	2015	Heemstede	399
+Totaal	250 tot 500 m²	2016	Heemstede	433
+Totaal	250 tot 500 m²	2017	Heemstede	439
+Totaal	250 tot 500 m²	2018	Heemstede	443
+Totaal	250 tot 500 m²	2019	Heemstede	445
+Totaal	250 tot 500 m²	2020	Heemstede	449
+Totaal	250 tot 500 m²	2021	Heemstede	458
+Totaal	250 tot 500 m²	2022	Heemstede	671
+Totaal	250 tot 500 m²	2023	Heemstede	641
+Totaal	250 tot 500 m²	2024	Heemstede	621
+Totaal	250 tot 500 m²	2025	Heemstede	610
+Totaal	500 tot 10 000 m²	2012	Heemstede	31
+Totaal	500 tot 10 000 m²	2013	Heemstede	31
+Totaal	500 tot 10 000 m²	2014	Heemstede	37
+Totaal	500 tot 10 000 m²	2015	Heemstede	36
+Totaal	500 tot 10 000 m²	2016	Heemstede	37
+Totaal	500 tot 10 000 m²	2017	Heemstede	29
+Totaal	500 tot 10 000 m²	2018	Heemstede	29
+Totaal	500 tot 10 000 m²	2019	Heemstede	31
+Totaal	500 tot 10 000 m²	2020	Heemstede	32
+Totaal	500 tot 10 000 m²	2021	Heemstede	30
+Totaal	500 tot 10 000 m²	2022	Heemstede	37
+Totaal	500 tot 10 000 m²	2023	Heemstede	35
+Totaal	500 tot 10 000 m²	2024	Heemstede	35
+Totaal	500 tot 10 000 m²	2025	Heemstede	34
+Eengezinswoning	Totaal	2012	Heemstede	8154
+Eengezinswoning	Totaal	2013	Heemstede	8156
+Eengezinswoning	Totaal	2014	Heemstede	8178
+Eengezinswoning	Totaal	2015	Heemstede	8188
+Eengezinswoning	Totaal	2016	Heemstede	8190
+Eengezinswoning	Totaal	2017	Heemstede	8194
+Eengezinswoning	Totaal	2018	Heemstede	8227
+Eengezinswoning	Totaal	2019	Heemstede	8234
+Eengezinswoning	Totaal	2020	Heemstede	8250
+Eengezinswoning	Totaal	2021	Heemstede	8312
+Eengezinswoning	Totaal	2022	Heemstede	8311
+Eengezinswoning	Totaal	2023	Heemstede	8317
+Eengezinswoning	Totaal	2024	Heemstede	8331
+Eengezinswoning	Totaal	2025	Heemstede	8320
+Eengezinswoning	2 tot 15 m²	2012	Heemstede	1
+Eengezinswoning	2 tot 15 m²	2013	Heemstede	1
+Eengezinswoning	2 tot 15 m²	2014	Heemstede	1
+Eengezinswoning	2 tot 15 m²	2015	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2016	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2017	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2018	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2019	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2020	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2021	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2022	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2023	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2024	Heemstede	0
+Eengezinswoning	2 tot 15 m²	2025	Heemstede	0
+Eengezinswoning	15 tot 50 m²	2012	Heemstede	37
+Eengezinswoning	15 tot 50 m²	2013	Heemstede	37
+Eengezinswoning	15 tot 50 m²	2014	Heemstede	37
+Eengezinswoning	15 tot 50 m²	2015	Heemstede	37
+Eengezinswoning	15 tot 50 m²	2016	Heemstede	37
+Eengezinswoning	15 tot 50 m²	2017	Heemstede	37
+Eengezinswoning	15 tot 50 m²	2018	Heemstede	38
+Eengezinswoning	15 tot 50 m²	2019	Heemstede	38
+Eengezinswoning	15 tot 50 m²	2020	Heemstede	38
+Eengezinswoning	15 tot 50 m²	2021	Heemstede	38
+Eengezinswoning	15 tot 50 m²	2022	Heemstede	39
+Eengezinswoning	15 tot 50 m²	2023	Heemstede	48
+Eengezinswoning	15 tot 50 m²	2024	Heemstede	58
+Eengezinswoning	15 tot 50 m²	2025	Heemstede	49
+Eengezinswoning	50 tot 75 m²	2012	Heemstede	292
+Eengezinswoning	50 tot 75 m²	2013	Heemstede	292
+Eengezinswoning	50 tot 75 m²	2014	Heemstede	290
+Eengezinswoning	50 tot 75 m²	2015	Heemstede	291
+Eengezinswoning	50 tot 75 m²	2016	Heemstede	289
+Eengezinswoning	50 tot 75 m²	2017	Heemstede	284
+Eengezinswoning	50 tot 75 m²	2018	Heemstede	279
+Eengezinswoning	50 tot 75 m²	2019	Heemstede	274
+Eengezinswoning	50 tot 75 m²	2020	Heemstede	268
+Eengezinswoning	50 tot 75 m²	2021	Heemstede	265
+Eengezinswoning	50 tot 75 m²	2022	Heemstede	149
+Eengezinswoning	50 tot 75 m²	2023	Heemstede	149
+Eengezinswoning	50 tot 75 m²	2024	Heemstede	151
+Eengezinswoning	50 tot 75 m²	2025	Heemstede	149
+Eengezinswoning	75 tot 100 m²	2012	Heemstede	1478
+Eengezinswoning	75 tot 100 m²	2013	Heemstede	1474
+Eengezinswoning	75 tot 100 m²	2014	Heemstede	1469
+Eengezinswoning	75 tot 100 m²	2015	Heemstede	1466
+Eengezinswoning	75 tot 100 m²	2016	Heemstede	1455
+Eengezinswoning	75 tot 100 m²	2017	Heemstede	1448
+Eengezinswoning	75 tot 100 m²	2018	Heemstede	1434
+Eengezinswoning	75 tot 100 m²	2019	Heemstede	1429
+Eengezinswoning	75 tot 100 m²	2020	Heemstede	1405
+Eengezinswoning	75 tot 100 m²	2021	Heemstede	1384
+Eengezinswoning	75 tot 100 m²	2022	Heemstede	1180
+Eengezinswoning	75 tot 100 m²	2023	Heemstede	1220
+Eengezinswoning	75 tot 100 m²	2024	Heemstede	1211
+Eengezinswoning	75 tot 100 m²	2025	Heemstede	1219
+Eengezinswoning	100 tot 150 m²	2012	Heemstede	3389
+Eengezinswoning	100 tot 150 m²	2013	Heemstede	3385
+Eengezinswoning	100 tot 150 m²	2014	Heemstede	3384
+Eengezinswoning	100 tot 150 m²	2015	Heemstede	3396
+Eengezinswoning	100 tot 150 m²	2016	Heemstede	3398
+Eengezinswoning	100 tot 150 m²	2017	Heemstede	3396
+Eengezinswoning	100 tot 150 m²	2018	Heemstede	3408
+Eengezinswoning	100 tot 150 m²	2019	Heemstede	3405
+Eengezinswoning	100 tot 150 m²	2020	Heemstede	3399
+Eengezinswoning	100 tot 150 m²	2021	Heemstede	3440
+Eengezinswoning	100 tot 150 m²	2022	Heemstede	3257
+Eengezinswoning	100 tot 150 m²	2023	Heemstede	3208
+Eengezinswoning	100 tot 150 m²	2024	Heemstede	3205
+Eengezinswoning	100 tot 150 m²	2025	Heemstede	3188
+Eengezinswoning	150 tot 250 m²	2012	Heemstede	2545
+Eengezinswoning	150 tot 250 m²	2013	Heemstede	2556
+Eengezinswoning	150 tot 250 m²	2014	Heemstede	2578
+Eengezinswoning	150 tot 250 m²	2015	Heemstede	2582
+Eengezinswoning	150 tot 250 m²	2016	Heemstede	2593
+Eengezinswoning	150 tot 250 m²	2017	Heemstede	2613
+Eengezinswoning	150 tot 250 m²	2018	Heemstede	2648
+Eengezinswoning	150 tot 250 m²	2019	Heemstede	2664
+Eengezinswoning	150 tot 250 m²	2020	Heemstede	2711
+Eengezinswoning	150 tot 250 m²	2021	Heemstede	2750
+Eengezinswoning	150 tot 250 m²	2022	Heemstede	3032
+Eengezinswoning	150 tot 250 m²	2023	Heemstede	3068
+Eengezinswoning	150 tot 250 m²	2024	Heemstede	3103
+Eengezinswoning	150 tot 250 m²	2025	Heemstede	3122
+Eengezinswoning	250 tot 500 m²	2012	Heemstede	383
+Eengezinswoning	250 tot 500 m²	2013	Heemstede	382
+Eengezinswoning	250 tot 500 m²	2014	Heemstede	383
+Eengezinswoning	250 tot 500 m²	2015	Heemstede	381
+Eengezinswoning	250 tot 500 m²	2016	Heemstede	385
+Eengezinswoning	250 tot 500 m²	2017	Heemstede	391
+Eengezinswoning	250 tot 500 m²	2018	Heemstede	395
+Eengezinswoning	250 tot 500 m²	2019	Heemstede	397
+Eengezinswoning	250 tot 500 m²	2020	Heemstede	401
+Eengezinswoning	250 tot 500 m²	2021	Heemstede	409
+Eengezinswoning	250 tot 500 m²	2022	Heemstede	621
+Eengezinswoning	250 tot 500 m²	2023	Heemstede	593
+Eengezinswoning	250 tot 500 m²	2024	Heemstede	573
+Eengezinswoning	250 tot 500 m²	2025	Heemstede	564
+Eengezinswoning	500 tot 10 000 m²	2012	Heemstede	29
+Eengezinswoning	500 tot 10 000 m²	2013	Heemstede	29
+Eengezinswoning	500 tot 10 000 m²	2014	Heemstede	36
+Eengezinswoning	500 tot 10 000 m²	2015	Heemstede	35
+Eengezinswoning	500 tot 10 000 m²	2016	Heemstede	33
+Eengezinswoning	500 tot 10 000 m²	2017	Heemstede	25
+Eengezinswoning	500 tot 10 000 m²	2018	Heemstede	25
+Eengezinswoning	500 tot 10 000 m²	2019	Heemstede	27
+Eengezinswoning	500 tot 10 000 m²	2020	Heemstede	28
+Eengezinswoning	500 tot 10 000 m²	2021	Heemstede	26
+Eengezinswoning	500 tot 10 000 m²	2022	Heemstede	33
+Eengezinswoning	500 tot 10 000 m²	2023	Heemstede	31
+Eengezinswoning	500 tot 10 000 m²	2024	Heemstede	30
+Eengezinswoning	500 tot 10 000 m²	2025	Heemstede	29
+Meergezinswoning	Totaal	2012	Heemstede	3597
+Meergezinswoning	Totaal	2013	Heemstede	3657
+Meergezinswoning	Totaal	2014	Heemstede	4069
+Meergezinswoning	Totaal	2015	Heemstede	4133
+Meergezinswoning	Totaal	2016	Heemstede	4330
+Meergezinswoning	Totaal	2017	Heemstede	4317
+Meergezinswoning	Totaal	2018	Heemstede	4334
+Meergezinswoning	Totaal	2019	Heemstede	4353
+Meergezinswoning	Totaal	2020	Heemstede	4378
+Meergezinswoning	Totaal	2021	Heemstede	4505
+Meergezinswoning	Totaal	2022	Heemstede	4510
+Meergezinswoning	Totaal	2023	Heemstede	4546
+Meergezinswoning	Totaal	2024	Heemstede	4566
+Meergezinswoning	Totaal	2025	Heemstede	4521
+Meergezinswoning	2 tot 15 m²	2012	Heemstede	1
+Meergezinswoning	2 tot 15 m²	2013	Heemstede	1
+Meergezinswoning	2 tot 15 m²	2014	Heemstede	1
+Meergezinswoning	2 tot 15 m²	2015	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2016	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2017	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2018	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2019	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2020	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2021	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2022	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2023	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2024	Heemstede	0
+Meergezinswoning	2 tot 15 m²	2025	Heemstede	0
+Meergezinswoning	15 tot 50 m²	2012	Heemstede	363
+Meergezinswoning	15 tot 50 m²	2013	Heemstede	365
+Meergezinswoning	15 tot 50 m²	2014	Heemstede	675
+Meergezinswoning	15 tot 50 m²	2015	Heemstede	692
+Meergezinswoning	15 tot 50 m²	2016	Heemstede	745
+Meergezinswoning	15 tot 50 m²	2017	Heemstede	743
+Meergezinswoning	15 tot 50 m²	2018	Heemstede	749
+Meergezinswoning	15 tot 50 m²	2019	Heemstede	753
+Meergezinswoning	15 tot 50 m²	2020	Heemstede	757
+Meergezinswoning	15 tot 50 m²	2021	Heemstede	754
+Meergezinswoning	15 tot 50 m²	2022	Heemstede	755
+Meergezinswoning	15 tot 50 m²	2023	Heemstede	785
+Meergezinswoning	15 tot 50 m²	2024	Heemstede	787
+Meergezinswoning	15 tot 50 m²	2025	Heemstede	739
+Meergezinswoning	50 tot 75 m²	2012	Heemstede	1187
+Meergezinswoning	50 tot 75 m²	2013	Heemstede	1200
+Meergezinswoning	50 tot 75 m²	2014	Heemstede	1242
+Meergezinswoning	50 tot 75 m²	2015	Heemstede	1258
+Meergezinswoning	50 tot 75 m²	2016	Heemstede	1266
+Meergezinswoning	50 tot 75 m²	2017	Heemstede	1262
+Meergezinswoning	50 tot 75 m²	2018	Heemstede	1272
+Meergezinswoning	50 tot 75 m²	2019	Heemstede	1277
+Meergezinswoning	50 tot 75 m²	2020	Heemstede	1285
+Meergezinswoning	50 tot 75 m²	2021	Heemstede	1345
+Meergezinswoning	50 tot 75 m²	2022	Heemstede	1307
+Meergezinswoning	50 tot 75 m²	2023	Heemstede	1312
+Meergezinswoning	50 tot 75 m²	2024	Heemstede	1319
+Meergezinswoning	50 tot 75 m²	2025	Heemstede	1320
+Meergezinswoning	75 tot 100 m²	2012	Heemstede	1081
+Meergezinswoning	75 tot 100 m²	2013	Heemstede	1116
+Meergezinswoning	75 tot 100 m²	2014	Heemstede	1138
+Meergezinswoning	75 tot 100 m²	2015	Heemstede	1159
+Meergezinswoning	75 tot 100 m²	2016	Heemstede	1188
+Meergezinswoning	75 tot 100 m²	2017	Heemstede	1187
+Meergezinswoning	75 tot 100 m²	2018	Heemstede	1190
+Meergezinswoning	75 tot 100 m²	2019	Heemstede	1188
+Meergezinswoning	75 tot 100 m²	2020	Heemstede	1191
+Meergezinswoning	75 tot 100 m²	2021	Heemstede	1191
+Meergezinswoning	75 tot 100 m²	2022	Heemstede	1300
+Meergezinswoning	75 tot 100 m²	2023	Heemstede	1316
+Meergezinswoning	75 tot 100 m²	2024	Heemstede	1321
+Meergezinswoning	75 tot 100 m²	2025	Heemstede	1326
+Meergezinswoning	100 tot 150 m²	2012	Heemstede	735
+Meergezinswoning	100 tot 150 m²	2013	Heemstede	742
+Meergezinswoning	100 tot 150 m²	2014	Heemstede	790
+Meergezinswoning	100 tot 150 m²	2015	Heemstede	800
+Meergezinswoning	100 tot 150 m²	2016	Heemstede	867
+Meergezinswoning	100 tot 150 m²	2017	Heemstede	863
+Meergezinswoning	100 tot 150 m²	2018	Heemstede	864
+Meergezinswoning	100 tot 150 m²	2019	Heemstede	870
+Meergezinswoning	100 tot 150 m²	2020	Heemstede	877
+Meergezinswoning	100 tot 150 m²	2021	Heemstede	916
+Meergezinswoning	100 tot 150 m²	2022	Heemstede	845
+Meergezinswoning	100 tot 150 m²	2023	Heemstede	838
+Meergezinswoning	100 tot 150 m²	2024	Heemstede	839
+Meergezinswoning	100 tot 150 m²	2025	Heemstede	841
+Meergezinswoning	150 tot 250 m²	2012	Heemstede	207
+Meergezinswoning	150 tot 250 m²	2013	Heemstede	211
+Meergezinswoning	150 tot 250 m²	2014	Heemstede	205
+Meergezinswoning	150 tot 250 m²	2015	Heemstede	205
+Meergezinswoning	150 tot 250 m²	2016	Heemstede	212
+Meergezinswoning	150 tot 250 m²	2017	Heemstede	210
+Meergezinswoning	150 tot 250 m²	2018	Heemstede	207
+Meergezinswoning	150 tot 250 m²	2019	Heemstede	213
+Meergezinswoning	150 tot 250 m²	2020	Heemstede	216
+Meergezinswoning	150 tot 250 m²	2021	Heemstede	246
+Meergezinswoning	150 tot 250 m²	2022	Heemstede	249
+Meergezinswoning	150 tot 250 m²	2023	Heemstede	243
+Meergezinswoning	150 tot 250 m²	2024	Heemstede	247
+Meergezinswoning	150 tot 250 m²	2025	Heemstede	244
+Meergezinswoning	250 tot 500 m²	2012	Heemstede	21
+Meergezinswoning	250 tot 500 m²	2013	Heemstede	20
+Meergezinswoning	250 tot 500 m²	2014	Heemstede	17
+Meergezinswoning	250 tot 500 m²	2015	Heemstede	18
+Meergezinswoning	250 tot 500 m²	2016	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2017	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2018	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2019	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2020	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2021	Heemstede	49
+Meergezinswoning	250 tot 500 m²	2022	Heemstede	50
+Meergezinswoning	250 tot 500 m²	2023	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2024	Heemstede	48
+Meergezinswoning	250 tot 500 m²	2025	Heemstede	46
+Meergezinswoning	500 tot 10 000 m²	2012	Heemstede	2
+Meergezinswoning	500 tot 10 000 m²	2013	Heemstede	2
+Meergezinswoning	500 tot 10 000 m²	2014	Heemstede	1
+Meergezinswoning	500 tot 10 000 m²	2015	Heemstede	1
+Meergezinswoning	500 tot 10 000 m²	2016	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2017	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2018	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2019	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2020	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2021	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2022	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2023	Heemstede	4
+Meergezinswoning	500 tot 10 000 m²	2024	Heemstede	5
+Meergezinswoning	500 tot 10 000 m²	2025	Heemstede	5
