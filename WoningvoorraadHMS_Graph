@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Line graph: totale woningvoorraad per woningtype in Heemstede over jaren",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
+    "format": { "type": "tsv" }
+  },
+  "transform": [
+    {
+      "filter": "datum.Gemeente === 'Heemstede' && datum.Oppervlakteklasse === 'Totaal'"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": true
+  },
+  "encoding": {
+    "x": {
+      "field": "Jaar",
+      "type": "ordinal",
+      "title": "Jaar"
+    },
+    "y": {
+      "field": "Beginstand woningvoorraad",
+      "type": "quantitative",
+      "title": "Totaal aantal woningen",
+      "axis": { "titlePadding": 20 }
+    },
+    "color": {
+      "field": "Woningtype",
+      "type": "nominal",
+      "scale": { "scheme": "dark2" },
+      "title": "Woningtype"
+    },
+    "tooltip": [
+      { "field": "Jaar" },
+      { "field": "Woningtype" },
+      { "field": "Beginstand woningvoorraad" }
+    ]
+  }
+}
