@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Horizontale bar chart met percentage in de balken",
+  "width": 500,
+  "height": {"step": 40},
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/Herkomst_bevolkingHMS.txt",
+    "format": {"type": "tsv"}
+  },
+  "transform": [
+    {"filter": "datum.Herkomstland !== 'Totaal'"},
+    {
+      "window": [{"op": "sum", "field": "Bevolking op 1 januari", "as": "TotaleBevolking"}],
+      "frame": [null, null]
+    },
+    {
+      "calculate": "(datum['Bevolking op 1 januari'] / datum.TotaleBevolking) * 100",
+      "as": "Percentage"
+    },
+    {
+      "sort": [{"field": "Percentage", "order": "descending"}]
+    }
+  ],
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "Herkomstland",
+          "type": "ordinal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "title": "Percentage",
+          "axis": {"format": ".0f", "title": "Percentage"}
+        },
+        "color": {
+          "field": "Herkomstland",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "range": [
+              "#4B6CB7",  // diep blauw
+              "#6A82FB",  // blauw/lavendel
+              "#A18CD1",  // licht paars
+              "#D291BC",  // paars/roze
+              "#FEC8D8",  // zacht roze
+              "#E0BBE4",  // lavendel
+              "#CDB4DB",  // lila
+              "#B5AADF",  // zacht paars
+              "#A6C0FE",  // lichtblauw
+              "#D0BCFF"   // pastel paars
+            ]
+          }
+        },
+        "tooltip": [
+          {"field": "Herkomstland", "type": "nominal", "title": "Herkomst"},
+          {"field": "Bevolking op 1 januari", "type": "quantitative", "title": "Aantal"},
+          {"field": "Percentage", "type": "quantitative", "format": ".1f", "title": "Percentage"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 3,
+        "color": "black",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "y": {
+          "field": "Herkomstland",
+          "type": "ordinal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "Percentage",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ]
+}
