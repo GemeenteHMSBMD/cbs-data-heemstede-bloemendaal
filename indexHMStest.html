@@ -14,9 +14,14 @@
         padding: 2rem;
       }
 
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
         gap: 2rem;
         max-width: 1200px;
         margin: auto;
@@ -34,47 +39,50 @@
         transform: scale(1.02);
       }
 
-      h1 {
-        text-align: center;
-        margin-bottom: 2rem;
+      /* Specifieke breedte-aanpassingen voor sommige visuals */
+      #bouwjaar {
+        max-width: 500px;
       }
     </style>
   </head>
   <body>
-    <h1>Open Data Visualisaties: Heemstede</h1>
+    <h1>Open Data Visualisaties – Heemstede</h1>
     <div class="grid">
       <div class="visual" id="piramide"></div>
-      <div class="visual" id="donut"></div>
       <div class="visual" id="groei"></div>
       <div class="visual" id="bouwjaar"></div>
+      <div class="visual" id="woningvoorraad_bars"></div>
+      <div class="visual" id="woningvoorraad_graph"></div>
     </div>
 
     <script type="text/javascript">
-      // Visual 1: Bevolkingspiramide
       vegaEmbed(
         "#piramide",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/bevolkingspiramideHMS-spec.json",
         { actions: false }
       );
 
-      // Visual 2: Donut M/V
-      vegaEmbed(
-        "#donut",
-        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/MV%20donut",
-        { actions: false }
-      );
-
-      // Visual 3: Bevolkingsgroei
       vegaEmbed(
         "#groei",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/BevolkingsgroeiHMS.json",
         { actions: false }
       );
 
-      // Visual 4: Aantal panden per bouwjaar
       vegaEmbed(
         "#bouwjaar",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/Aantal%20panden%20bouwjaar.json",
+        { actions: false }
+      );
+
+      vegaEmbed(
+        "#woningvoorraad_bars",
+        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadHMS_BARS",
+        { actions: false }
+      );
+
+      vegaEmbed(
+        "#woningvoorraad_graph",
+        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/WoningvoorraadHMS_Graph",
         { actions: false }
       );
     </script>
