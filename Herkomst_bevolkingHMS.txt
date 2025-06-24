@@ -1,0 +1,12 @@
+Herkomstland	Bevolking op 1 januari
+Totaal	27593
+Nederland	20758
+Europa (exclusief Nederland)	2705
+Indonesië	1094
+Marokko	190
+Nederlandse Cariben	175
+Suriname	197
+Turkije	233
+Afrika (exclusief Marokko)	486
+Amerika en Oceanië (ex. Suriname en N...	725
+Azië (exclusief Indonesië en Turkije)	1030
