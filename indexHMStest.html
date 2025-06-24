@@ -21,7 +21,7 @@
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
         max-width: 1200px;
         margin: auto;
@@ -33,15 +33,16 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 1rem;
         transition: transform 0.3s ease;
+        max-width: 100%;
       }
 
       .visual:hover {
         transform: scale(1.02);
       }
 
-      /* Specifieke breedte-aanpassingen voor sommige visuals */
-      #bouwjaar {
-        max-width: 500px;
+      .vega-embed {
+        width: 100% !important;
+        height: auto !important;
       }
     </style>
   </head>
@@ -56,34 +57,43 @@
     </div>
 
     <script type="text/javascript">
+      const options = {
+        actions: false,
+        defaultStyle: true,
+        renderer: "canvas",
+        config: {
+          view: { continuousWidth: 300, continuousHeight: 250 }
+        }
+      };
+
       vegaEmbed(
         "#piramide",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/bevolkingspiramideHMS-spec.json",
-        { actions: false }
+        options
       );
 
       vegaEmbed(
         "#groei",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/BevolkingsgroeiHMS.json",
-        { actions: false }
+        options
       );
 
       vegaEmbed(
         "#bouwjaar",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/Aantal%20panden%20bouwjaar.json",
-        { actions: false }
+        options
       );
 
       vegaEmbed(
         "#woningvoorraad_bars",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadHMS_BARS",
-        { actions: false }
+        options
       );
 
       vegaEmbed(
         "#woningvoorraad_graph",
         "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/WoningvoorraadHMS_Graph",
-        { actions: false }
+        options
       );
     </script>
   </body>
