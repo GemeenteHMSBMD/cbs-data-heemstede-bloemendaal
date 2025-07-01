@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Leeftijdsgroepen met absolute aantallen en percentage boven bars",
+  "width": 500,
+  "height": 300,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/Bevolking%20HMS%20text.txt",
+    "format": {"type": "tsv"}
+  },
+  "transform": [
+    {"filter": "datum['Perioden'] == 2024"},
+    {"filter": "datum['Regio\\'s'] == 'Heemstede'"},
+    {"filter": "datum['Geslacht'] == 'Mannen' || datum['Geslacht'] == 'Vrouwen'"},
+    {
+      "calculate": "datum['Leeftijd'] <= 14 ? '0-14' : datum['Leeftijd'] <= 24 ? '15-24' : datum['Leeftijd'] <= 44 ? '25-44' : datum['Leeftijd'] <= 64 ? '45-64' : '65 en ouder'",
+      "as": "Leeftijdsgroep"
+    },
+    {
+      "aggregate": [
+        {"op": "sum", "field": "Bevolking op 1 januari", "as": "Aantal"}
+      ],
+      "groupby": ["Leeftijdsgroep"]
+    },
+    {
+      "window": [
+        {"op": "sum", "field": "Aantal", "as": "Totaal"}
+      ],
+      "frame": [null, null]
+    },
+    {
+      "calculate": "(datum.Aantal / datum.Totaal) * 100",
+      "as": "Percentage"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Leeftijdsgroep",
+      "type": "ordinal",
+      "title": "Leeftijdsgroep",
+      "sort": ["0-14", "15-24", "25-44", "45-64", "65 en ouder"]
+    },
+    "y": {
+      "field": "Aantal",
+      "type": "quantitative",
+      "title": "Aantal personen",
+      "titlePadding": -20
+    },
+    "color": {
+      "field": "Leeftijdsgroep",
+      "type": "nominal",
+      "scale": {
+        "domain": ["0-14", "15-24", "25-44", "45-64", "65 en ouder"],
+        "range": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
+      },
+      "legend": null
+    },
+    "tooltip": [
+      {"field": "Leeftijdsgroep", "title": "Leeftijdsgroep"},
+      {"field": "Aantal", "title": "Aantal personen"},
+      {"field": "Percentage", "title": "Percentage (%)", "format": ".1f"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": "bar"
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dy": -5,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {"field": "Percentage", "type": "quantitative", "format": ".1f"},
+        "color": {"value": "black"}
+      }
+    }
+  ]
+}
