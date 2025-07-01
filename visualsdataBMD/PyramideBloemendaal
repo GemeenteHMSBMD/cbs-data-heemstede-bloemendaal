@@ -3,8 +3,7 @@
   "width": 700,
   "height": 400,
   "data": {
-    "url": "https://raw.githubusercontent.com/Jimvelthuis/cbs-data-heemstede-bloemendaal/main/visualsdataBMD/VegaPyramideBMDtab.txt
-",
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/visualsdataBMD/VegaPyramideBMDtab.txt",
     "format": {
       "type": "tsv",
       "parse": {
