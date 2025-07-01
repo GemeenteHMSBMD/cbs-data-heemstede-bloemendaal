@@ -1,74 +1,90 @@
 <!DOCTYPE html>
 <html lang="nl">
   <head>
-    <meta charset="UTF-8" />
-    <title>Heemstede Visualisaties</title>
+    <meta charset="utf-8" />
+    <title>Heemstede Bevolkingsvisualisaties</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
     <style>
       body {
-        font-family: "Segoe UI", sans-serif;
-        background: #f4f4f4;
-        margin: 0;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background: #f9f9f9;
         padding: 2rem;
+        margin: 0;
       }
-
-      h1 {
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1, h2 {
+        text-align: left;
+      }
+      .uitleg.welkom {
+        font-size: 4rem;
+        line-height: 1.5;
+        font-weight: bold;
         text-align: center;
         margin-bottom: 2rem;
       }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: auto;
-      }
-
-      .visual {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 1rem;
-        transition: transform 0.3s ease;
-        max-width: 100%;
-        min-height: 300px;
-      }
-
-      .visual:hover {
-        transform: scale(1.02);
-      }
-
-      .vega-embed {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
+      .uitleg {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        text-align: left;
+        margin-bottom: 2rem;
       }
     </style>
   </head>
   <body>
-    <h1>Open Data Visualisaties – Heemstede</h1>
-    <div class="grid">
-      <div class="visual" id="piramide"></div>
-      <div class="visual" id="groei"></div>
-      <div class="visual" id="bouwjaar"></div>
-      <div class="visual" id="woningvoorraad_bars"></div>
-      <div class="visual" id="woningvoorraad_graph"></div>
+    <div class="container">
+      <div class="uitleg welkom">Welkom!</div>
+
+      <div class="uitleg">
+        Op deze pagina vind je interactieve visualisaties over de bevolkingsontwikkeling en gebouwde omgeving in de gemeente Heemstede.
+      </div>
+
+      <h1>Bevolking Heemstede naar leeftijd en geslacht</h1>
+      <div class="uitleg">
+        Deze bevolkingspiramide laat de opbouw van de bevolking per leeftijd en geslacht zien. Gebruik de schuif onderin om een jaar te kiezen en zie hoe de verdeling verandert over de tijd.
+      </div>
+      <div id="vis"></div>
+
+      <h2>Ontwikkeling totale bevolking en 65+ in Heemstede</h2>
+      <div class="uitleg">
+        Deze visualisatie toont de ontwikkeling van het totaal aantal inwoners én het aandeel 65-plussers in Heemstede over meerdere jaren.
+      </div>
+      <div id="bevolking65plus"></div>
+
+      <h2>Gebouwde panden per bouwjaar in Heemstede</h2>
+      <div class="uitleg">
+        Hier zie je het aantal gebouwen dat per bouwjaar in Heemstede is geregistreerd. De grafiek toont historische groei.
+      </div>
+      <div id="gebouwdePanden"></div>
+
+      <h2>Woningvoorraad Heemstede: Verdeling naar oppervlakteklasse</h2>
+      <div class="uitleg">
+        De verdeling van de woningvoorraad in Heemstede per woningtype en oppervlakteklasse in een gekozen jaar.
+      </div>
+      <div id="woningvoorraadVerdeling"></div>
+
+      <h2>Woningvoorraad Heemstede: Ontwikkeling per woningtype</h2>
+      <div class="uitleg">
+        De ontwikkeling van de woningvoorraad per woningtype over de jaren.
+      </div>
+      <div id="woningvoorraadOntwikkeling"></div>
+
+      <h2>Leeftijdsgroepen HMS (nieuw)</h2>
+      <div class="uitleg">
+        Verdeling van de bevolking in Heemstede over leeftijdsgroepen met absolute aantallen en percentage boven de balken.
+      </div>
+      <div id="leeftijdsgroepenHMS"></div>
     </div>
 
     <script type="text/javascript">
-      const options = {
-        actions: false,
-        defaultStyle: true,
-        renderer: "canvas",
-        config: {
-          view: { continuousWidth: 300, continuousHeight: 250 }
-        }
-      };
-
-      // Inline JSON specificatie voor de piramide
       const specPiramide = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "width": 700,
@@ -86,23 +102,15 @@
           }
         },
         "transform": [
+          { "filter": "datum.jaar == jaar" },
+          { "calculate": "datum.mannen * -1", "as": "_mannen" },
+          { "calculate": "datum.jaar - datum.leeftijd", "as": "geboortejaar" },
           {
-            "filter": "jaar == 1988"
-          },
-          {
-            "calculate": "-datum.mannen",
-            "as": "_mannen"
-          },
-          {
-            "calculate": "datum.jaar - datum.leeftijd",
-            "as": "geboortejaar"
-          },
-          {
-            "calculate": "datum.leeftijd > 99 ? datum.geboortejaar + ' en eerder' : datum.geboortejaar",
+            "calculate": "if(datum.leeftijd > 99, datum.geboortejaar + ' en eerder', datum.geboortejaar)",
             "as": "_geboortejaartooltip"
           },
           {
-            "calculate": "datum.leeftijd > 99 ? '+100' : datum.leeftijd",
+            "calculate": "if(datum.leeftijd > 99, '+100', datum.leeftijd)",
             "as": "_leeftijdtooltip"
           },
           {
@@ -162,36 +170,253 @@
         "mark": {
           "type": "bar",
           "tooltip": true
+        },
+        "params": [
+          {
+            "name": "jaar",
+            "value": 1988,
+            "bind": {
+              "input": "range",
+              "min": 1988,
+              "max": 2024,
+              "step": 1,
+              "name": "Jaar: "
+            }
+          }
+        ]
+      };
+
+const spec65plus = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Totale bevolking en 65+ bevolking in Heemstede",
+        "width": 700,
+        "height": 300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Bevolking%20HMS%20text.txt",
+          "format": { "type": "tsv" }
+        },
+        "transform": [
+          { "filter": "datum['Geslacht'] == 'Totaal mannen en vrouwen'" }
+        ],
+        "layer": [
+          {
+            "transform": [
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Totale bevolking'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal", "title": "Jaar" },
+              "y": { "field": "aantal", "type": "quantitative", "title": "Aantal personen" },
+              "color": {
+                "field": "categorie",
+                "type": "nominal",
+                "scale": {
+                  "domain": ["Totale bevolking", "Bevolking 65+"],
+                  "range": ["#a6cee3", "#1f78b4"]
+                },
+                "legend": {
+                  "title": "Bevolkingsgroep",
+                  "orient": "top"
+                }
+              },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Totale bevolking" }
+              ]
+            }
+          },
+          {
+            "transform": [
+              { "filter": "toNumber(datum['Leeftijd']) >= 65" },
+              {
+                "aggregate": [
+                  { "op": "sum", "field": "Bevolking op 1 januari", "as": "aantal" }
+                ],
+                "groupby": ["Perioden"]
+              },
+              { "calculate": "'Bevolking 65+'", "as": "categorie" }
+            ],
+            "mark": { "type": "area", "opacity": 0.6 },
+            "encoding": {
+              "x": { "field": "Perioden", "type": "ordinal" },
+              "y": { "field": "aantal", "type": "quantitative" },
+              "color": { "field": "categorie", "type": "nominal" },
+              "tooltip": [
+                { "field": "Perioden", "title": "Jaar" },
+                { "field": "aantal", "title": "Bevolking 65+" }
+              ]
+            }
+          }
+        ]
+      };
+
+      const specGebouwdePanden = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Aantal gebouwde panden per bouwjaar in Heemstede",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/BAG%20data%20tekst.txt",
+    "format": {
+      "type": "tsv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum['GEMEENTENAAM'] === 'Heemstede' && isValid(datum['BOUWJAAR']) && datum['BOUWJAAR'] != null"
+    },
+    {
+      "calculate": "toNumber(datum['BOUWJAAR'])",
+      "as": "Bouwjaar"
+    },
+    {
+      "filter": "datum.Bouwjaar >= 1800 && datum.Bouwjaar <= 2025"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "color": "#FF1493",
+    "opacity": 0.6
+  },
+  "encoding": {
+    "x": {
+      "field": "Bouwjaar",
+      "type": "quantitative",
+      "title": "Bouwjaar",
+      "axis": {
+        "tickMinStep": 10,
+        "labelFontSize": 14,
+        "titleFontSize": 16,
+        "format": "d"
+      }
+    },
+    "y": {
+      "aggregate": "count",
+      "title": "Aantal panden",
+      "axis": {
+        "labelFontSize": 14,
+        "titleFontSize": 16
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Bouwjaar",
+        "type": "quantitative",
+        "title": "Bouwjaar"
+      },
+      {
+        "aggregate": "count",
+        "title": "Aantal panden"
+      }
+    ]
+  }
+};
+
+const specWoningvoorraadVerdeling = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Woningvoorraad Heemstede: verdeling per oppervlakteklasse",
+        "params": [{
+          "name": "jaar",
+          "value": 2012,
+          "bind": {
+            "input": "range", "min": 2012, "max": 2025, "step": 1, "name": "Kies een jaar: "
+          }
+        }],
+        "width": 700,
+        "data": {
+          "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
+          "format": { "type": "tsv" }
+        },
+        "transform": [
+          {
+            "filter": "datum.Gemeente === 'Heemstede' && datum.Jaar == jaar && datum.Oppervlakteklasse !== 'Totaal'"
+          }
+        ],
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "Oppervlakteklasse",
+            "type": "ordinal",
+            "sort": ["< 20","20 tot 30","30 tot 40","40 tot 50","50 tot 60","60 tot 70","70 tot 80","80 tot 90","90 tot 100","100 tot 120","120 tot 140","140 tot 160","160 en meer"],
+            "title": "Oppervlakteklasse (m²)",
+            "axis": { "labelAngle": -40 }
+          },
+          "y": {
+            "field": "Beginstand woningvoorraad",
+            "type": "quantitative",
+            "title": "Aantal woningen"
+          },
+          "color": {
+            "field": "Woningtype",
+            "type": "nominal",
+            "scale": { "scheme": "dark2" },
+            "title": "Woningtype"
+          },
+          "tooltip": [
+            { "field": "Jaar" },
+            { "field": "Woningtype" },
+            { "field": "Oppervlakteklasse" },
+            { "field": "Beginstand woningvoorraad" }
+          ]
         }
       };
 
-      // Piramide inline embedden
-      vegaEmbed("#piramide", specPiramide, options);
+      const specWoningvoorraadOntwikkeling = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Line graph: totale woningvoorraad per woningtype in Heemstede over jaren",
+        "width": 800,
+        "height": 400,
+        "data": {
+          "url": "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadCBS.txt",
+          "format": { "type": "tsv" }
+        },
+        "transform": [
+          {
+            "filter": "datum.Gemeente === 'Heemstede' && datum.Oppervlakteklasse === 'Totaal'"
+          }
+        ],
+        "mark": { "type": "line", "point": true },
+        "encoding": {
+          "x": { "field": "Jaar", "type": "ordinal", "title": "Jaar" },
+          "y": {
+            "field": "Beginstand woningvoorraad",
+            "type": "quantitative",
+            "title": "Totaal aantal woningen",
+            "axis": { "titlePadding": 20 }
+          },
+          "color": {
+            "field": "Woningtype",
+            "type": "nominal",
+            "scale": { "scheme": "dark2" },
+            "title": "Woningtype"
+          },
+          "tooltip": [
+            { "field": "Jaar" },
+            { "field": "Woningtype" },
+            { "field": "Beginstand woningvoorraad" }
+          ]
+        }
+      };
 
-      // Andere visualisaties extern
-      vegaEmbed(
-        "#groei",
-        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/BevolkingsgroeiHMS.json",
-        options
-      );
+      // Embed bestaande visualisaties
+      vegaEmbed("#vis", specPiramide, { actions: false });
+      vegaEmbed("#bevolking65plus", spec65plus, { actions: false });
+      vegaEmbed("#gebouwdePanden", specGebouwdePanden, { actions: false });
+      vegaEmbed("#woningvoorraadVerdeling", specWoningvoorraadVerdeling, { actions: false });
+      vegaEmbed("#woningvoorraadOntwikkeling", specWoningvoorraadOntwikkeling, { actions: false });
 
-      vegaEmbed(
-        "#bouwjaar",
-        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/Aantal%20panden%20bouwjaar.json",
-        options
-      );
-
-      vegaEmbed(
-        "#woningvoorraad_bars",
-        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadHMS_BARS",
-        options
-      );
-
-      vegaEmbed(
-        "#woningvoorraad_graph",
-        "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/main/WoningvoorraadHMS_GRAPH",
-        options
-      );
+      // Nieuw: embed de leeftijdsgroepen visualisatie rechtstreeks vanuit GitHub
+      vegaEmbed("#leeftijdsgroepenHMS", "https://raw.githubusercontent.com/GemeenteHMSBMD/cbs-data-heemstede-bloemendaal/refs/heads/main/LeeftijdsgroepenHMS", {
+        actions: false,
+        theme: "default"
+      });
     </script>
   </body>
 </html>
